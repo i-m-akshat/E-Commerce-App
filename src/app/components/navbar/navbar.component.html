@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg custom-navbar shadow-sm fixed-top">
+    <div class="container-fluid">
+        <!-- Brand / Logo -->
+        <a routerLink="/" class="navbar-brand fw-bold text-white" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact:true }">
+            ShopEase
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                <!-- Home -->
+                <li class="nav-item">
+                    <a routerLink="/" class="nav-link text-white" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact:true }">
+                        Home
+                    </a>
+                </li>
+
+                <!-- Seller -->
+                <li class="nav-item">
+                    <a routerLink="/seller-auth" class="nav-link text-white" routerLinkActive="active">
+                        Seller
+                    </a>
+                </li>
+
+                <!-- Login -->
+                <li class="nav-item">
+                    <a routerLink="/login" class="nav-link text-white" routerLinkActive="active">
+                        Login
+                    </a>
+                </li>
+
+                <!-- Cart -->
+                <li class="nav-item">
+                    <a routerLink="/cart" class="nav-link cart-icon text-white position-relative"
+                        routerLinkActive="active">
+                        <i class="bi bi-cart"></i> Cart
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

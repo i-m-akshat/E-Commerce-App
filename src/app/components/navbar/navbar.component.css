@@ -1,0 +1,39 @@
+/* Navbar Gradient */
+.custom-navbar {
+  background: linear-gradient(90deg, #0062e6, #33aeff);
+  transition: all 0.3s ease;
+}
+
+/* Navbar links hover */
+.custom-navbar .nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #ffd700 !important; /* Gold hover */
+}
+
+/* Dropdown animation */
+.animated-dropdown {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-item.dropdown:hover .animated-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  display: block;
+}
+
+/* Cart hover animation */
+.cart-icon:hover i {
+  transform: scale(1.2) rotate(10deg);
+  transition: transform 0.3s ease;
+}
+
+/* Sticky shadow effect */
+.custom-navbar.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}

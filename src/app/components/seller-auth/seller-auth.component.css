@@ -1,0 +1,14 @@
+.signup-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 100%;
+}
+
+.signup-card h2 {
+  color: #0062e6;
+  margin-bottom: 20px;
+  text-align: center;
+}
