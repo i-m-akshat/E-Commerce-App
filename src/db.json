@@ -1,0 +1,17 @@
+{
+  "seller": [
+    {
+      "id": "2881",
+      "name": "Akshat Dwivedi",
+      "email": "akshatdwivedi59941@gmail.com",
+      "password": "abc@1234"
+    },
+    {
+      "id": "967c",
+      "name": "Akshat Dubey",
+      "email": "akshatdubey59941@gmail.com",
+      "password": "abc@1234"
+    }
+    
+  ]
+}

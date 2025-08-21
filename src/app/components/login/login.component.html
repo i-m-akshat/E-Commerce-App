@@ -2,21 +2,23 @@
     <div class="card shadow-lg" style="max-width: 450px; width: 100%;">
         <div class="card-body p-5">
             <h2 class="card-title text-center mb-4">Login</h2>
-            <form>
+            <form #sellerLogin="ngForm" (ngSubmit)="onLogin(sellerLogin.value)">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    <input type="email" ngModel class="form-control" id="email" name="email"
+                        placeholder="Enter your email" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password"
-                        required>
+                    <input type="password" ngModel class="form-control" name="password" id="password"
+                        placeholder="Enter your password" required>
                 </div>
                 <div class="d-grid mb-3">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" [disabled]="sellerLogin.invalid" class="btn btn-primary">Login</button>
                 </div>
                 <p class="text-center mb-0">Don't have an account? <a routerLink="/seller-auth"
                         class="btn btn-sm btn-warning">Sign up</a></p>
+                <p class="text-center text-danger">{{authError}}</p>
             </form>
         </div>
     </div>

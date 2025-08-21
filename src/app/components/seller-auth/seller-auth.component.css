@@ -6,7 +6,12 @@
   max-width: 500px;
   width: 100%;
 }
-
+.signup-wrapper {
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center; /* vertical center */
+  min-height: 100vh; /* full viewport height */
+}
 .signup-card h2 {
   color: #0062e6;
   margin-bottom: 20px;

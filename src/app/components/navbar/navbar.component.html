@@ -25,18 +25,24 @@
                 </li>
 
                 <!-- Seller -->
+                @if(isSellerLoggedIn){
                 <li class="nav-item">
                     <a routerLink="/seller-auth" class="nav-link text-white" routerLinkActive="active">
+
                         Seller
                     </a>
                 </li>
-
+                }@else {
                 <!-- Login -->
                 <li class="nav-item">
                     <a routerLink="/login" class="nav-link text-white" routerLinkActive="active">
                         Login
                     </a>
                 </li>
+                }
+
+
+
 
                 <!-- Cart -->
                 <li class="nav-item">
