@@ -14,7 +14,5 @@ import { SellerService } from './services/seller.service';
 export class AppComponent {
   title: string = 'E-Commerce';
   constructor(private seller: SellerService) {}
-  ngOnInit(): void {
-    this.seller.reloadSeller();
-  }
+  
 }
