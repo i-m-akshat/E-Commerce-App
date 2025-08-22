@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SellerService } from '../../services/seller.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { SellerService } from '../../services/seller.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  constructor(private sellerServ: SellerService) {}
+  constructor(private sellerServ: SellerService, private route: Router) {}
   isSellerLoggedIn: boolean = false;
   //Anything that tries to use this before the constructor finishes (like calling a service).
   ngOnInit() {
@@ -18,5 +18,14 @@ export class NavbarComponent {
     this.sellerServ.getLoginStatus().subscribe((status) => {
       this.isSellerLoggedIn = status;
     });
+  }
+  Logout() {
+    var res = confirm('Are you sure you want to logout');
+    if (res) {
+      localStorage.removeItem('seller');
+      this.sellerServ.setLoginStatus(false);
+      this.route.navigate(['/']);
+      alert('You have been successfully logged out!');
+    }
   }
 }

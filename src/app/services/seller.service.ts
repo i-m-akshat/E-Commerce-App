@@ -21,6 +21,15 @@ export class SellerService {
       { observe: 'response' }
     );
   }
+  //check each time on reload
+  reloadSeller() {
+    if (localStorage.getItem('seller')) {
+      this.setLoginStatus(true);
+    } else {
+      this.setLoginStatus(false);
+    }
+  }
+
   //helper functions
 
   setLoginStatus(status: boolean) {

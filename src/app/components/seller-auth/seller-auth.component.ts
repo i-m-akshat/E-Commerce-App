@@ -15,6 +15,9 @@ import { SellerService } from '../../services/seller.service';
 export class SellerAuthComponent {
   authError: string = '';
   constructor(private sellerService: SellerService, private router: Router) {}
+  ngOnInit(): void {
+    this.sellerService.reloadSeller();
+  }
   seller: Seller = {
     name: '',
     email: '',
