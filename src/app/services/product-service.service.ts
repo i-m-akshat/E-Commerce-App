@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../schema/product';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -15,5 +16,8 @@ export class ProductServiceService {
         observe: 'response',
       }
     );
+  }
+  getProducts(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>('http://localhost:3000/products');
   }
 }
