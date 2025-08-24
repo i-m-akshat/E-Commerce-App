@@ -69,7 +69,7 @@ body {
   border-bottom: 1px solid #ddd;
 }
 .hero-section {
-  background-image: url("https://placehold.co/1920x800/e0e0e0/ffffff?text=Your+Perfect+Home");
+  background-image: url("assets/NicePng_ecommerce-development-png_8304192.png");
   background-size: cover;
   background-position: center;
   height: 80vh;
@@ -93,5 +93,11 @@ body {
   z-index: 1;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

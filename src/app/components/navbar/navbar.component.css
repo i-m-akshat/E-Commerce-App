@@ -13,6 +13,9 @@
 .custom-navbar .nav-link:hover {
   color: #ffd700 !important; /* Gold hover */
 }
+.custom-navbar .nav-link.active {
+  color: #ffd700 !important; /* Gold active */
+}
 
 /* Dropdown animation */
 .animated-dropdown {

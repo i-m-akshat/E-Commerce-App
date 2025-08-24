@@ -4,6 +4,8 @@ import { SellerAuthComponent } from './components/seller-auth/seller-auth.compon
 import { LoginComponent } from './components/login/login.component';
 import { SellerHomeComponent } from './components/seller-home/seller-home.component';
 import { authGuard } from './auth.guard';
+import { SellerProductComponent } from './components/seller-product/seller-product.component';
+import { SellerProductAddComponent } from './components/seller-product-add/seller-product-add.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -12,6 +14,17 @@ export const routes: Routes = [
   {
     path: 'seller-home',
     component: SellerHomeComponent,
+    canActivate: [authGuard],
+  },
+
+  {
+    path: 'seller-product',
+    component: SellerProductComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'add-product',
+    component: SellerProductAddComponent,
     canActivate: [authGuard],
   },
 ];

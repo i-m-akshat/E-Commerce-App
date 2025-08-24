@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SellerService } from '../../services/seller.service';
-
+import { Seller } from '../../schema/seller';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -12,11 +12,15 @@ import { SellerService } from '../../services/seller.service';
 export class NavbarComponent {
   constructor(private sellerServ: SellerService, private route: Router) {}
   isSellerLoggedIn: boolean = false;
+  sellerName!: string;
+  seller!: Seller;
   //Anything that tries to use this before the constructor finishes (like calling a service).
   ngOnInit() {
     //this runs after angular is done constructing your class you can put only properties and methods without ngOninit but if u r setting some values by calling another service then you will be using ngOnit
     this.sellerServ.getLoginStatus().subscribe((status) => {
       this.isSellerLoggedIn = status;
+      this.seller = JSON.parse(localStorage.getItem('seller') || '{}')[0];
+      this.sellerName = this.seller.name;
     });
   }
   Logout() {

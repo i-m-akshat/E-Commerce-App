@@ -9,7 +9,9 @@ export class SellerService {
   isSellerLoggedIn = new BehaviorSubject<boolean>(false);
   isLoginSuccessfull = new EventEmitter<boolean>(false);
   isSignUpSuccessfull = new EventEmitter<boolean>(false);
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.reloadSeller();
+  }
   userSignUp(data: Seller) {
     return this.http.post<Seller>('http://localhost:3000/seller', data, {
       observe: 'response',
