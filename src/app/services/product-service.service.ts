@@ -20,4 +20,10 @@ export class ProductServiceService {
   getProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>('http://localhost:3000/products');
   }
+
+  deleteProduct(id: string): Observable<Product> {
+    return this.httpClient.delete<Product>(
+      `http://localhost:3000/products/${id}`
+    );
+  }
 }

@@ -21,15 +21,6 @@
   ],
   "products": [
     {
-      "id": "e326",
-      "productName": "Samsung S24Fe",
-      "productPrice": 29999,
-      "productColor": "#aa0808",
-      "productCategory": "electronics",
-      "productDescription": "adsfasdf",
-      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
-    },
-    {
       "id": "5e40",
       "productName": "Samsung S24Fe",
       "productPrice": 12341154,
@@ -43,15 +34,6 @@
       "productName": "Samsung S24Fe",
       "productPrice": 1235123,
       "productColor": "#ad0000",
-      "productCategory": "electronics",
-      "productDescription": "asdfasdf",
-      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
-    },
-    {
-      "id": "8986",
-      "productName": "Samsung S24Fe",
-      "productPrice": 1231231,
-      "productColor": "#bc1a1a",
       "productCategory": "electronics",
       "productDescription": "asdfasdf",
       "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
