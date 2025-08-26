@@ -1,0 +1,37 @@
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4 mx-auto" style="max-width: 650px;">
+        <div class="card-body text-center">
+            <h2 class="card-title fw-bold text-primary mb-4">🛍️ Product Details</h2>
+
+            <!-- Product Image -->
+            <div class="mb-4">
+                <div class="card shadow-sm border-0 p-3 rounded-3 bg-light">
+                    <img [src]="product.productImageUrl" alt="Product Image" class="img-fluid rounded-3"
+                        style="max-height: 250px; object-fit: contain;">
+                </div>
+            </div>
+
+            <!-- Product Name -->
+            <h4 class="fw-bold mb-2">{{ product.productName }}</h4>
+
+            <!-- Price -->
+            <p class="text-muted mb-2"><strong>Price:</strong> ${{ product.productPrice }}</p>
+
+            <!-- Category -->
+            <p class="text-muted mb-2"><strong>Category:</strong> {{ product.productCategory }}</p>
+
+            <!-- Color -->
+            <p class="text-muted mb-3">
+                <strong>Color:</strong>
+                <span class="d-inline-block rounded-circle" style="width: 20px; height: 20px;"
+                    [style.background-color]="product.productColor"></span>
+            </p>
+
+            <!-- Description -->
+            <p class="text-muted">{{ product.productDescription }}</p>
+
+            <!-- Back button -->
+            <a href="/seller-product" class="btn btn-primary btn-lg mt-3 w-100">⬅️ Back to Products</a>
+        </div>
+    </div>
+</div>

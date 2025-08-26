@@ -35,4 +35,9 @@ export class ProductServiceService {
       product
     );
   }
+  getPopularProducts(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(
+      'http://localhost:3000/products?_limit=3'
+    );
+  }
 }
