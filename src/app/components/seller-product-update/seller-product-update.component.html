@@ -1,0 +1,73 @@
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-4 p-4 my-5" style="max-width: 650px; margin: auto;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4 fw-bold text-success">✏️ Update Product</h2>
+
+            <form (ngSubmit)="updateProduct(product.id,product)" #productForm="ngForm">
+
+                <!-- Product Name -->
+                <div class="mb-3">
+                    <label for="productName" class="form-label fw-semibold">Product Name</label>
+                    <input type="text" class="form-control form-control-lg" id="productName" name="productName"
+                        [(ngModel)]="product.productName" placeholder="Enter product name" required>
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label fw-semibold">Product Price ($)</label>
+                    <input type="number" class="form-control form-control-lg" id="productPrice" name="productPrice"
+                        [(ngModel)]="product.productPrice" placeholder="Enter product price" required>
+                </div>
+
+                <!-- Color -->
+                <div class="mb-3">
+                    <label for="productColor" class="form-label fw-semibold">Product Color</label>
+                    <input type="color" class="form-control form-control-color" id="productColor" name="productColor"
+                        [(ngModel)]="product.productColor" title="Choose product color" required>
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+                    <label for="productCategory" class="form-label fw-semibold">Product Category</label>
+                    <select class="form-select form-select-lg" id="productCategory" name="productCategory"
+                        [(ngModel)]="product.productCategory" required>
+                        <option disabled>Select category</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="home">Home</option>
+                        <option value="books">Books</option>
+                    </select>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="productDescription" class="form-label fw-semibold">Product Description</label>
+                    <textarea class="form-control" id="productDescription" name="productDescription"
+                        [(ngModel)]="product.productDescription" rows="4" placeholder="Enter product description"
+                        required></textarea>
+                </div>
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Product Image URL</label>
+                    <input type="url" class="form-control form-control-lg" name="productImageUrl"
+                        [(ngModel)]="product.productImageUrl" placeholder="Paste image URL"
+                        (input)="previewUrl = productForm.value.productImageUrl" required>
+                </div>
+
+                <!-- Image Preview -->
+                <div class="text-center mb-4">
+                    @if (previewUrl) {
+                    <div class="card shadow-sm border-0 p-3 rounded-3 bg-light">
+                        <img [src]="previewUrl" alt="Preview" class="img-fluid rounded-3"
+                            style="max-height: 250px; object-fit: contain;">
+                    </div>
+                    }
+                </div>
+
+                <!-- Update Button -->
+                <button type="submit" class="btn btn-success btn-lg w-100 shadow">💾 Update product?</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -24,9 +24,9 @@
       "id": "5e40",
       "productName": "Samsung S24Fe",
       "productPrice": 12341154,
-      "productColor": "#bd0000",
+      "productColor": "#000000",
       "productCategory": "electronics",
-      "productDescription": "asdfasd",
+      "productDescription": "sam soong",
       "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
     },
     {
@@ -37,6 +37,24 @@
       "productCategory": "electronics",
       "productDescription": "asdfasdf",
       "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
+    },
+    {
+      "id": "15b4",
+      "productName": "Monitor",
+      "productPrice": 12399,
+      "productColor": "#5a03dd",
+      "productCategory": "electronics",
+      "productDescription": "asdfasdf",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/r/a/y/-original-imahcn2mdfuuvs7w.jpeg?q=70&crop=false\" fetchpriority=\"high\" srcset=\"https://rukminim2.flixcart.com/image/832/832/xif0q/monitor/r/a/y/-original-imahcn2mdfuuvs7w.jpeg?q=70&crop=false 2x, https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/r/a/y/-original-imahcn2mdfuuvs7w.jpeg?q=70&crop=false 1x"
+    },
+    {
+      "id": "3abb",
+      "productName": "Monitor",
+      "productPrice": 1234451,
+      "productColor": "#0ac6f5",
+      "productCategory": "electronics",
+      "productDescription": "asdfasdf",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/8/z/w/-original-imahcn2myhg82mhz.jpeg?q=70&crop=false\" fetchpriority=\"high\" srcset=\"https://rukminim2.flixcart.com/image/832/832/xif0q/monitor/8/z/w/-original-imahcn2myhg82mhz.jpeg?q=70&crop=false 2x, https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/8/z/w/-original-imahcn2myhg82mhz.jpeg?q=70&crop=false 1x"
     }
   ]
 }

@@ -26,4 +26,13 @@ export class ProductServiceService {
       `http://localhost:3000/products/${id}`
     );
   }
+  getProductByID(id: string): Observable<Product> {
+    return this.httpClient.get<Product>(`http://localhost:3000/products/${id}`);
+  }
+  updateProduct(id: string, product: Product) {
+    return this.httpClient.put<Product>(
+      `http://localhost:3000/products/${id}`,
+      product
+    );
+  }
 }
