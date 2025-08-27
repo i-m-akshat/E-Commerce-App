@@ -38,18 +38,17 @@
                 </li>
                 }@else {
                 <li class="nav-item">
+                    <a routerLink="/products" class="mx-2 nav-link" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact:true }">Products</a>
+                </li>
+                @if(!isUserLoggedIn){
+                <li class="nav-item">
                     <a routerLink="/seller-auth" class="mx-2 nav-link" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact:true }">Seller</a>
                 </li>
-                <li class="nav-item">
-                    <a routerLink="/cart" class="mx-2 nav-link cart-icon position-relative" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact:true }">
-                        <fa-icon [icon]="faCartShopping"></fa-icon> Cart
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            0
-                        </span>
-                    </a>
-                </li>
+                }
+
+
                 }
             </ul>
 
@@ -76,6 +75,35 @@
                 </ul>
                 }
             </div>
+
+            <div class="d-flex align-items-center ms-3">
+                @if(!isSellerLoggedIn){
+                @if(isUserLoggedIn){
+                <!-- User Name -->
+                <span class="me-3">{{ userName }}</span>
+
+                <!-- Logout Button -->
+                <button class="btn btn-outline-danger" (click)="logoutUser()">
+                    Logout
+                </button>
+                }@else{
+                <a routerLink="/user-login" class="btn btn-outline-primary d-flex align-items-center">
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    <span class="ms-2">Login</span>
+                </a>
+                }
+                }
+                <!-- <li class="nav-item"> -->
+                <a routerLink="/cart" class="btn btn-primary position-relative d-flex align-items-center mx-2">
+                    <fa-icon [icon]="faCartShopping" class="me-2"></fa-icon>
+                    <span class="fw-bold">Cart</span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        style="font-size: 0.7rem;">0</span>
+                </a>
+                <!-- </li> -->
+            </div>
+
+
         </div>
     </div>
 </nav>

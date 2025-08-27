@@ -1,9 +1,9 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { Seller, SellerLogin } from '../schema/seller';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { EventEmitter, Injectable } from "@angular/core";
+import { Seller, SellerLogin } from "../schema/seller";
+import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject } from "rxjs";
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class SellerService {
   isSellerLoggedIn = new BehaviorSubject<boolean>(false);
@@ -13,19 +13,19 @@ export class SellerService {
     this.reloadSeller();
   }
   userSignUp(data: Seller) {
-    return this.http.post<Seller>('http://localhost:3000/seller', data, {
-      observe: 'response',
+    return this.http.post<Seller>("http://localhost:3000/seller", data, {
+      observe: "response",
     });
   }
-  userLogin(data: SellerLogin) {
+  sellerLogin(data: SellerLogin) {
     return this.http.get<Seller[]>(
       `http://localhost:3000/seller?email=${data.email}&password=${data.password}`,
-      { observe: 'response' }
+      { observe: "response" }
     );
   }
   //check each time on reload
   reloadSeller() {
-    if (localStorage.getItem('seller')) {
+    if (localStorage.getItem("seller")) {
       this.setLoginStatus(true);
     } else {
       this.setLoginStatus(false);

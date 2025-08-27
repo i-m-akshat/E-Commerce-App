@@ -8,6 +8,9 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { ProductServiceService } from "../../services/product-service.service";
 import { Product } from "../../schema/product";
 import { FormsModule } from "@angular/forms";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { UserService } from "../../services/user.service";
+import { User } from "../../schema/user";
 @Component({
   selector: "app-navbar",
   standalone: true,
@@ -16,25 +19,58 @@ import { FormsModule } from "@angular/forms";
   styleUrls: ["./navbar.component.css"],
 })
 export class NavbarComponent {
+  isUserLoggedIn: boolean = false;
+  userName: string = "";
   searchResults: Product[] = [];
   searchText: string = "";
   constructor(
     private sellerServ: SellerService,
     private route: Router,
-    private productServ: ProductServiceService
+    private productServ: ProductServiceService,
+    private userServ: UserService
   ) {}
   isSellerLoggedIn: boolean = false;
-  sellerName!: string;
-  seller!: Seller;
+  sellerName: string = "";
+  seller: Seller = {
+    email: "",
+    name: "",
+    password: "",
+  };
+  user: User = {
+    email: "",
+    fullName: "",
+    password: "",
+  };
   faCartShopping = faCartShopping;
   faSearch = faSearch;
+  faUser = faUser;
   //Anything that tries to use this before the constructor finishes (like calling a service).
   ngOnInit() {
     //this runs after angular is done constructing your class you can put only properties and methods without ngOninit but if u r setting some values by calling another service then you will be using ngOnit
     this.sellerServ.getLoginStatus().subscribe((status) => {
       this.isSellerLoggedIn = status;
-      this.seller = JSON.parse(localStorage.getItem("seller") || "{}")[0];
-      this.sellerName = this.seller.name;
+      const sellerData = JSON.parse(localStorage.getItem("seller") || "null");
+      if (sellerData && sellerData.length > 0) {
+        this.seller = sellerData[0];
+        this.sellerName = this.seller.name;
+      } else {
+        this.seller = { email: "", name: "", password: "" };
+        this.sellerName = "";
+      }
+    });
+    this.userServ.getLoginStatus().subscribe((isLoggedIn) => {
+      this.isUserLoggedIn = isLoggedIn;
+      console.log("userloggedin", this.isUserLoggedIn);
+      if (isLoggedIn) {
+        const UserData = JSON.parse(localStorage.getItem("user") || "null");
+        if (UserData && UserData.length > 0) {
+          this.user = UserData[0];
+          this.userName = this.user.fullName;
+        } else {
+          this.user = { email: "", fullName: "", password: "" };
+          this.userName = "";
+        }
+      }
     });
   }
   Logout() {
@@ -42,6 +78,15 @@ export class NavbarComponent {
     if (res) {
       localStorage.removeItem("seller");
       this.sellerServ.setLoginStatus(false);
+      this.route.navigate(["/"]);
+      alert("You have been successfully logged out!");
+    }
+  }
+  logoutUser() {
+    var res = confirm("Are you sure you want to logout");
+    if (res) {
+      localStorage.removeItem("user");
+      this.userServ.setLoginStatus(false);
       this.route.navigate(["/"]);
       alert("You have been successfully logged out!");
     }
@@ -55,7 +100,7 @@ export class NavbarComponent {
   }
   selectResult(id: string) {
     // navigate to the product page
-    this.route.navigate(["seller-product-view", id]); //navuigate by url is more like raw address Think of it like: "Here’s the full address string, just go there directly."
+    this.route.navigate(["product-details", id]); //navuigate by url is more like raw address Think of it like: "Here’s the full address string, just go there directly."
 
     this.searchResults = [];
     this.searchText = "";

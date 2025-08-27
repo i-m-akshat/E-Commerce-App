@@ -1,0 +1,32 @@
+<div class="new-design signup-wrapper">
+    <div class="signup-card">
+        <h2>User Login</h2>
+        <p class="description">Enter your email and password to login</p>
+
+        <form #userForm="ngForm" (ngSubmit)="handleLogin(userForm.value,userForm)">
+            <!-- Email Input -->
+            <div class="mb-3">
+                <input type="email" ngModel name="email" class="form-control" placeholder="Email" required>
+            </div>
+
+            <!-- Password Input -->
+            <div class="mb-3">
+                <input type="password" ngModel name="password" class="form-control" placeholder="Password" required>
+            </div>
+
+            <!-- Login Button -->
+            <div class="d-grid gap-2 mt-3">
+                <button type="submit" [disabled]="userForm.invalid" class="btn btn-primary btn-lg">Login</button>
+            </div>
+
+            <!-- Optional Links -->
+            <p class="text-center mb-0">
+                Don't have an account?
+                <a routerLink="/user-sign-up" class="btn btn-sm btn-outline-success" style="text-decoration: none;">
+                    Sign up
+                </a>
+            </p>
+
+        </form>
+    </div>
+</div>

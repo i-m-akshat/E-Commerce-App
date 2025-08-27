@@ -24,7 +24,7 @@
       "id": "5e40",
       "productName": "Samsung S24Fe",
       "productPrice": 29999,
-      "productColor": "#000000",
+      "productColor": "#07c7ed",
       "productCategory": "electronics",
       "productDescription": "sam soong",
       "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
@@ -64,6 +64,18 @@
       "productCategory": "home",
       "productDescription": "Cotton Double Jaipuri Prints Flat Bedsheet  (Pack of 1, Green, Dark Green, White, Olive Green)",
       "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/bedsheet/s/s/8/1-double-bedsheet-and-2-pillow-covers-1-21-flat-war-trade-original-imaheu7xvmvpuzgy.jpeg?q=70&amp;crop=false"
+    }
+  ],
+  "users": [
+    {
+      "email": "asdf",
+      "password": "asdf",
+      "id": 1
+    },
+    {
+      "email": "akshatdwivedi@gmail.com",
+      "password": "asdf",
+      "id": 2
     }
   ]
 }

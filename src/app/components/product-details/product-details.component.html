@@ -1,1 +1,54 @@
-<p>product-details works!</p>
+<div class="new-design container py-5">
+    <!-- Breadcrumb / Navigation -->
+    @if(productDetails!=null){
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb bg-transparent p-0">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/products">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{productDetails.productName}}</li>
+        </ol>
+    </nav>
+
+    <!-- Product Details Row -->
+    <div class="row g-4 mt-5">
+        <!-- Left: Product Image -->
+        <div class="col-md-6">
+            <div class="product-image-preview-wrapper">
+                <img [src]="productDetails.productImageUrl" alt="Product Name" class="img-fluid rounded-3">
+            </div>
+        </div>
+
+        <!-- Right: Product Info -->
+        <div class="col-md-6 product-details-right">
+            <h3 class="mb-3">{{productDetails.productName}}</h3>
+            <p class="product-price fs-4 mb-3">₹ {{productDetails.productPrice}}</p>
+            <span class="badge bg-primary mb-3">{{productDetails.productCategory}}</span>
+
+            <div class="mb-3">
+                <h5>Description:</h5>
+                <p class="text-muted">This is a detailed description of the product. It can span multiple lines and
+                    include key features and specifications.</p>
+            </div>
+
+            <div class="mb-3">
+                <h5>Available Colors:</h5>
+                <span class="color-circle" [style.background-color]="productDetails.productColor"></span>
+                <!-- <span class="color-circle" style="background-color:#00ff00;"></span>
+                <span class="color-circle" style="background-color:#0000ff;"></span> -->
+            </div>
+            <div style="display:flex; align-items:center; gap:5px; max-width:250px;justify-content: center;">
+                <h5 class="mb-0">Quantity:</h5>
+                <button id="decrease" (click)="decreaseQuantity()" style="flex:1;">−</button>
+                <input type="number" class="form-control w-100 text-center" min="1" [(ngModel)]="quantity" />
+
+                <button id="increase" (click)="increaseQuantity()" style="flex:1;">+</button>
+            </div>
+            <div class="d-flex gap-2 mt-4">
+                <button class="btn btn-primary btn-lg flex-fill">Add to Cart</button>
+                <button class="btn btn-outline-success btn-lg flex-fill">Buy Now</button>
+            </div>
+        </div>
+    </div>
+    }
+
+</div>
