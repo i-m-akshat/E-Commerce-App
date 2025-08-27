@@ -1,127 +1,91 @@
-<!-- Hero Section -->
-<!-- <section class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content container">
-        <h1 class="display-3 fw-bold mb-4">Design Your Dream Home</h1>
-        <p class="lead mb-5">Explore our curated collection of furniture and decor to create a space that’s uniquely
-            you.</p>
-        <a href="#products" class="btn btn-primary btn-sm" style="width: auto; min-width: 0; padding: 0.25rem 0.75rem;">
-            Shop Now
-        </a>
+<div class="new-design">
 
+    <!-- Carousel Section -->
+    <div class="row d-flex justify-content-center align-items-center my-5">
+        <ngb-carousel class="full-screen-carousel rounded-4" [showNavigationIndicators]="true">
+            @if (popularProducts) {
+            @for (item of popularProducts; track $index) {
+            <ng-template ngbSlide>
+                <div class="picsum-img-wrapper position-relative p-3">
+                    <img [src]="item.productImageUrl" alt="{{item.productName}}"
+                        class="img-fluid rounded-3 w-100 h-100" />
+
+                    <div class="carousel-caption custom-caption">
+                        <h3 class="fw-bold text-white">{{item.productName}}</h3>
+                        <p class="text-white">{{item.productDescription}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            }
+            }
+        </ngb-carousel>
     </div>
-</section> -->
-<div class="row d-flex justify-content-center align-items-center">
-    <ngb-carousel>
-        @if (popularProducts) {
-        @for (item of popularProducts; track $index) {
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img [src]="item.productImageUrl" alt="Random first slide" />
-            </div>
-            <div class="carousel-caption">
-                <h3>{{item.productName}}</h3>
-                <p>{{item.productDescription}}</p>
-            </div>
-        </ng-template>
-        }
-        <!-- <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img [src]="images[0]" alt="Random first slide" />
-            </div>
-            <div class="carousel-caption">
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-        </ng-template>
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img [src]="images[1]" alt="Random second slide" />
-            </div>
-            <div class="carousel-caption">
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </ng-template>
-        <ng-template ngbSlide>
-            <div class="picsum-img-wrapper">
-                <img [src]="images[2]" alt="Random third slide" />
-            </div>
-            <div class="carousel-caption">
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
-        </ng-template> -->
 
-        }
-    </ngb-carousel>
-</div>
 
-<!-- Featured Products Section -->
-<section id="products" class="py-5">
+    <!-- Featured Products Section -->
+    <section id="products" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title mb-5">Featured Products</h2>
+            <div class="row g-4">
+                @if (popularProducts) {
+                @for (item of popularProducts; track $index) {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card product-card h-100 shadow-lg border-0">
+                        <div class="product-image">
+                            <img [src]="item.productImageUrl" alt="{{item.productName}}" class="img-fluid rounded-3" />
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-semibold text-gradient">{{item.productName}}</h5>
+                            <p class="text-muted small">{{item.productDescription}}</p>
+                            <p class="product-price fw-bold mb-3">₹{{item.productPrice}}</p>
+                            <div class="d-flex gap-2 justify-content-center">
+                                <button class="btn btn-outline-success flex-fill rounded-pill shadow-sm">View
+                                    Details</button>
+                                <button class="btn btn-primary flex-fill rounded-pill shadow-sm">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Minimalist Promo Section -->
     <div class="container">
-        <h2 class="text-center text-light fw-bold mb-5">Featured Products</h2>
-        <div class="row g-4">
-            <!-- Product Card 1 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card product-card h-100">
-                    <div class="product-image">Placeholder Image</div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Minimalist Sofa</h5>
-                        <p class="card-text text-muted">A sleek and modern sofa perfect for any living room.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <h4 class="fw-bold mb-0">$999.00</h4>
-                            <button class="btn btn-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+        <section class="row align-items-center mb-5 py-5">
+            <div class="col-md-6 text-center text-md-start mb-4 mb-md-0">
+                <h1 class="display-4 fw-bold text-gradient">Discover <br>Minimalist Living</h1>
+                <p class="lead my-4 text-muted">
+                    Explore our curated collection of essential items designed for a simpler, more beautiful life.
+                </p>
+                <a href="#" class="btn btn-primary btn-lg rounded-pill px-4 py-2 shadow-sm">Shop Now</a>
             </div>
-            <!-- Product Card 2 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card product-card h-100">
-                    <div class="product-image">Placeholder Image</div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Oakwood Dining Table</h5>
-                        <p class="card-text text-muted">A sturdy and elegant table for family dinners.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <h4 class="fw-bold mb-0">$1250.00</h4>
-                            <button class="btn btn-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-6 text-center">
+                <img src="https://placehold.co/600x400/cccccc/ffffff?text=Product+Hero"
+                    class="shadow-lg img-fluid rounded-3" alt="Minimalist Product">
             </div>
-            <!-- Product Card 3 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card product-card h-100">
-                    <div class="product-image">Placeholder Image</div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Scandinavian Floor Lamp</h5>
-                        <p class="card-text text-muted">Adds a warm, inviting glow to any corner.</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <h4 class="fw-bold mb-0">$189.00</h4>
-                            <button class="btn btn-sm">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
     </div>
-</section>
 
-<!-- Call to Action Section -->
-<section class="py-5 rounded-4 my-5 mx-3 bg-light">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-3">Ready to Start Designing?</h2>
-        <p class="lead mb-4">Sign up for our newsletter to get the latest deals and design tips delivered to your inbox.
-        </p>
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <form class="d-flex flex-column flex-sm-row">
-                    <input type="email" class="form-control form-control-lg me-sm-2 mb-2 mb-sm-0"
-                        placeholder="Enter your email" required>
-                    <button type="submit" class="btn btn-lg text-nowrap">Subscribe</button>
-                </form>
+    <!-- Newsletter / Call to Action Section -->
+    <section class="py-5 rounded-4 my-5 mx-3 bg-light shadow-lg">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-3 text-gradient">Ready to Start Designing?</h2>
+            <p class="lead mb-4">Sign up for our newsletter to get the latest deals and design tips delivered to your
+                inbox.</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <form class="d-flex flex-column flex-sm-row gap-2">
+                        <input type="email" class="form-control form-control-lg rounded-pill shadow-sm"
+                            placeholder="Enter your email" required>
+                        <button type="submit"
+                            class="btn btn-primary btn-lg text-nowrap rounded-pill shadow-sm">Subscribe</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+</div>

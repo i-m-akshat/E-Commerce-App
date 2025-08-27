@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
-import { Product } from '../schema/product';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Product } from "../schema/product";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class ProductServiceService {
   constructor(private httpClient: HttpClient) {}
 
   AddProduct(product: Product) {
     return this.httpClient.post<Product>(
-      'http://localhost:3000/products',
+      "http://localhost:3000/products",
       product,
       {
-        observe: 'response',
+        observe: "response",
       }
     );
   }
   getProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>('http://localhost:3000/products');
+    return this.httpClient.get<Product[]>("http://localhost:3000/products");
   }
 
   deleteProduct(id: string): Observable<Product> {
@@ -37,7 +37,17 @@ export class ProductServiceService {
   }
   getPopularProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(
-      'http://localhost:3000/products?_limit=3'
+      "http://localhost:3000/products?_limit=3"
+    );
+  }
+  getTrendyProducts(): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(
+      "http://localhost:3000/products?_limit=8"
+    );
+  }
+  searchProduct(query: string): Observable<Product[]> {
+    return this.httpClient.get<Product[]>(
+      `http://localhost:3000/products?q=${query}`
     );
   }
 }

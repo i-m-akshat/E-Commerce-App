@@ -1,25 +1,40 @@
-<div class="container d-flex justify-content-center align-items-center">
-    <div class="card shadow-lg" style="max-width: 450px; width: 100%;">
-        <div class="card-body p-5">
-            <h2 class="card-title text-center mb-4">Login</h2>
-            <form #sellerLogin="ngForm" (ngSubmit)="onLogin(sellerLogin.value)">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" ngModel class="form-control" id="email" name="email"
-                        placeholder="Enter your email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" ngModel class="form-control" name="password" id="password"
-                        placeholder="Enter your password" required>
-                </div>
-                <div class="d-grid mb-3">
-                    <button type="submit" [disabled]="sellerLogin.invalid" class="btn btn-primary">Login</button>
-                </div>
-                <p class="text-center mb-0">Don't have an account? <a routerLink="/seller-auth"
-                        class="btn btn-sm btn-warning">Sign up</a></p>
-                <p class="text-center text-danger">{{authError}}</p>
-            </form>
-        </div>
+<div class="new-design signup-wrapper">
+    <div class="signup-card">
+        <h2 class="text-center mb-3" style="color: var(--primary-color); font-weight: 700;">Login</h2>
+        <p class="description text-center mb-4">Access your seller account to start managing your products!</p>
+
+        <form #sellerLogin="ngForm" (ngSubmit)="onLogin(sellerLogin.value)">
+            <!-- Email -->
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" ngModel class="form-control" id="email" name="email" placeholder="Enter your email"
+                    required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" ngModel class="form-control" name="password" id="password"
+                    placeholder="Enter your password" required>
+            </div>
+
+            <!-- Login Button -->
+            <div class="d-grid mb-3">
+                <button type="submit" [disabled]="sellerLogin.invalid" class="btn btn-primary btn-lg">
+                    Login
+                </button>
+            </div>
+
+            <!-- Sign-up Link -->
+            <p class="text-center mb-0">
+                Don't have an account?
+                <a routerLink="/seller-auth" class="btn btn-sm btn-outline-success" style="text-decoration: none;">
+                    Sign up
+                </a>
+            </p>
+
+            <!-- Error Message -->
+            <p class="text-center text-danger mt-2">{{authError}}</p>
+        </form>
     </div>
 </div>

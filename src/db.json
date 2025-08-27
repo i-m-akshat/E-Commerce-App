@@ -23,29 +23,47 @@
     {
       "id": "5e40",
       "productName": "Samsung S24Fe",
-      "productPrice": 12341154,
+      "productPrice": 29999,
       "productColor": "#000000",
       "productCategory": "electronics",
       "productDescription": "sam soong",
       "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false"
     },
     {
-      "id": "15b4",
-      "productName": "Monitor",
-      "productPrice": 12399,
-      "productColor": "#3d0099",
-      "productCategory": "electronics",
-      "productDescription": "asdfasdf",
-      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/r/a/y/-original-imahcn2mdfuuvs7w.jpeg?q=70&crop=false\" fetchpriority=\"high\" srcset=\"https://rukminim2.flixcart.com/image/832/832/xif0q/monitor/r/a/y/-original-imahcn2mdfuuvs7w.jpeg?q=70&crop=false 2x, https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/r/a/y/-original-imahcn2mdfuuvs7w.jpeg?q=70&crop=false 1x"
+      "id": "e2fe",
+      "productName": "BEARDO Hair CLAY Wax for Men, 100 gm",
+      "productPrice": 331,
+      "productColor": "#100f0f",
+      "productCategory": "fashion",
+      "productDescription": "Matte Finish with volume| Strong Hold re-stylable Hair styles | With Kaolin Clay | Used by salon professionals Hair Clay  (100 g)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/hair-styling/f/w/y/-original-imagv3zh9pdkryxa.jpeg?q=70&crop=false"
     },
     {
-      "id": "3abb",
-      "productName": "Monitor",
-      "productPrice": 1234451,
-      "productColor": "#0ac6f5",
+      "id": "b087",
+      "productName": "OnePlus Nord Buds 2r",
+      "productPrice": 1799,
+      "productColor": "",
       "productCategory": "electronics",
-      "productDescription": "asdfasdf",
-      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/8/z/w/-original-imahcn2myhg82mhz.jpeg?q=70&crop=false\" fetchpriority=\"high\" srcset=\"https://rukminim2.flixcart.com/image/832/832/xif0q/monitor/8/z/w/-original-imahcn2myhg82mhz.jpeg?q=70&crop=false 2x, https://rukminim2.flixcart.com/image/416/416/xif0q/monitor/8/z/w/-original-imahcn2myhg82mhz.jpeg?q=70&crop=false 1x"
+      "productDescription": "In Ear Earbuds with Dual Mic & AI Crystal Clear Call Bluetooth  (Deep Grey, True Wireless)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/headphone/m/n/o/e510a-oneplus-original-imahdum7q6jx57gf.jpeg?q=70&crop=false"
+    },
+    {
+      "id": "1ab0",
+      "productName": "Men Checkered  T Shirt",
+      "productPrice": 350,
+      "productColor": "#52d025",
+      "productCategory": "fashion",
+      "productDescription": "Zip Neck Cotton Blend White, Light Green T-Shirt",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/t-shirt/u/i/w/l-64518810-try-this-original-imahdbmndhva7w8q.jpeg?q=70&crop=false"
+    },
+    {
+      "id": "1d59",
+      "productName": "Leo Creation 144 TC ",
+      "productPrice": 376,
+      "productColor": "#2de515",
+      "productCategory": "home",
+      "productDescription": "Cotton Double Jaipuri Prints Flat Bedsheet  (Pack of 1, Green, Dark Green, White, Olive Green)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/bedsheet/s/s/8/1-double-bedsheet-and-2-pillow-covers-1-21-flat-war-trade-original-imaheu7xvmvpuzgy.jpeg?q=70&amp;crop=false"
     }
   ]
 }

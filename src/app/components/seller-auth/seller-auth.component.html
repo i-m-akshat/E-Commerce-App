@@ -1,4 +1,4 @@
-<div class="signup-wrapper">
+<div class="new-design signup-wrapper" style="background: var(--secondary-color);">
     <div class="signup-card">
         <h2>Seller Sign-Up</h2>
         <p class="description">Create your account to start selling today!</p>
@@ -18,19 +18,24 @@
 
             <div class="mb-4">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" [(ngModel)]="seller.password" name="Password" class="form-control" id="password"
+                <input type="password" [(ngModel)]="seller.password" name="password" class="form-control" id="password"
                     placeholder="Enter password" required>
             </div>
 
             <div class="d-grid mb-3">
-                <button type="submit" [disabled]="sellerForm.invalid" class="btn btn-primary">Sign Up</button>
+                <button type="submit" [disabled]="sellerForm.invalid" class="btn btn-primary btn-lg">
+                    Sign Up
+                </button>
             </div>
 
-            <p class="text-center">Already have an account? <a class="btn btn-sm btn-success"
-                    style="text-decoration: none;" routerLink="/login">Log in</a>
+            <p class="text-center">
+                Already have an account?
+                <a class="btn btn-sm btn-outline-success" routerLink="/login" style="text-decoration: none;">
+                    Log in
+                </a>
             </p>
+
             <p class="text-center text-danger">{{authError}}</p>
         </form>
     </div>
-
 </div>

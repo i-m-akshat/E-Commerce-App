@@ -1,38 +1,71 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductServiceService } from '../../services/product-service.service';
-import { ActivatedRoute } from '@angular/router';
-import { Product } from '../../schema/product';
+import { Component, OnInit } from "@angular/core";
+import { ProductServiceService } from "../../services/product-service.service";
+import { ActivatedRoute } from "@angular/router";
+import { Product } from "../../schema/product";
 
 @Component({
-  selector: 'app-seller-product-view',
+  selector: "app-seller-product-view",
   imports: [],
-  templateUrl: './seller-product-view.component.html',
-  styleUrl: './seller-product-view.component.css',
+  templateUrl: "./seller-product-view.component.html",
+  styleUrl: "./seller-product-view.component.css",
 })
+// export class SellerProductViewComponent implements OnInit {
+//   productID: string = "";
+//   product: Product = {
+//     id: "",
+//     productName: "",
+//     productPrice: 0,
+//     productColor: "#000000",
+//     productCategory: "",
+//     productDescription: "",
+//     productImageUrl: "",
+//   };
+//   constructor(
+//     private route: ActivatedRoute,
+//     private service: ProductServiceService
+//   ) {
+//     this.productID = this.route.snapshot.paramMap.get("id") ?? "";
+//     console.log(this.productID);
+//   }
+//   ngOnInit(): void {
+//     // if (this.productID != '') {
+//     //   this.service
+//     //     .getProductByID(this.productID)
+//     //     .subscribe((result: Product) => {
+//     //       this.product = result;
+//     //     });
+//     // }
+//     this.route.paramMap.subscribe((params) => {
+//       const id = params.get("id");
+//     });
+//   }
+// }
 export class SellerProductViewComponent implements OnInit {
-  productID: string = '';
   product: Product = {
-    id: '',
-    productName: '',
+    id: "",
+    productName: "",
     productPrice: 0,
-    productColor: '#000000',
-    productCategory: '',
-    productDescription: '',
-    productImageUrl: '',
+    productColor: "#000000",
+    productCategory: "",
+    productDescription: "",
+    productImageUrl: "",
   };
+
   constructor(
     private route: ActivatedRoute,
     private service: ProductServiceService
-  ) {
-    this.productID = this.route.snapshot.paramMap.get('id') ?? '';
-  }
+  ) {}
+
   ngOnInit(): void {
-    if (this.productID != '') {
-      this.service
-        .getProductByID(this.productID)
-        .subscribe((result: Product) => {
+    // Subscribe to route params so it reacts to changes
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get("id"); // latest id from route
+      if (id) {
+        // fetch the product based on the new id
+        this.service.getProductByID(id).subscribe((result: Product) => {
           this.product = result;
         });
-    }
+      }
+    });
   }
 }

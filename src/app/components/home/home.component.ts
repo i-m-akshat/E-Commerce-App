@@ -11,15 +11,18 @@ import { ProductServiceService } from '../../services/product-service.service';
 export class HomeComponent implements OnInit {
   // images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   popularProducts: Product[] = [];
-
+  trendyProducts: Product[] = [];
   constructor(private service: ProductServiceService) {}
   ngOnInit() {
     this.service.getPopularProducts().subscribe((products: Product[]) => {
-      console.log(products);
       products.forEach((item) => {
         this.popularProducts.push(item);
       });
     });
-    console.log(this.popularProducts);
+    this.service.getTrendyProducts().subscribe((result: Product[]) => {
+      result.forEach((element) => {
+        this.trendyProducts.push(element);
+      });
+    });
   }
 }

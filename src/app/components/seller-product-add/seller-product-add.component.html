@@ -1,35 +1,36 @@
-<div class="container my-5">
+<div class="new-design container my-5">
     <div class="card shadow-lg border-0 rounded-4 p-4 my-5" style="max-width: 650px; margin: auto;">
         <div class="card-body">
-            <h2 class="card-title text-center mb-4 fw-bold text-primary">➕ Add New Product</h2>
+            <h2 class="card-title text-center mb-4 fw-bold text-gradient">➕ Add New Product</h2>
 
             <form (ngSubmit)="onSubmit(productForm.value,productForm)" #productForm="ngForm">
 
                 <!-- Product Name -->
                 <div class="mb-3">
                     <label for="productName" class="form-label fw-semibold">Product Name</label>
-                    <input type="text" class="form-control form-control-lg" id="productName" name="productName" ngModel
-                        placeholder="Enter product name">
+                    <input type="text" class="form-control form-control-lg rounded-pill" id="productName"
+                        name="productName" ngModel placeholder="Enter product name">
                 </div>
 
                 <!-- Price -->
                 <div class="mb-3">
                     <label for="productPrice" class="form-label fw-semibold">Product Price ($)</label>
-                    <input type="number" class="form-control form-control-lg" id="productPrice" name="productPrice"
-                        ngModel placeholder="Enter product price">
+                    <input type="number" class="form-control form-control-lg rounded-pill" id="productPrice"
+                        name="productPrice" ngModel placeholder="Enter product price">
                 </div>
 
                 <!-- Color -->
-                <div class="mb-3">
-                    <label for="productColor" class="form-label fw-semibold">Product Color</label>
-                    <input type="color" class="form-control form-control-color" id="productColor" value="#000000"
-                        name="productColor" ngModel title="Choose product color">
+                <div class="mb-3 d-flex align-items-center gap-2">
+                    <label for="productColor" class="form-label fw-semibold mb-0">Product Color</label>
+                    <input type="color" class="form-control-color" id="productColor" value="#000000" name="productColor"
+                        ngModel title="Choose product color">
                 </div>
 
                 <!-- Category -->
                 <div class="mb-3">
                     <label for="productCategory" class="form-label fw-semibold">Product Category</label>
-                    <select class="form-select form-select-lg" id="productCategory" name="productCategory" ngModel>
+                    <select class="form-select form-select-lg rounded-pill" id="productCategory" name="productCategory"
+                        ngModel>
                         <option selected disabled>Select category</option>
                         <option value="electronics">Electronics</option>
                         <option value="fashion">Fashion</option>
@@ -41,14 +42,14 @@
                 <!-- Description -->
                 <div class="mb-3">
                     <label for="productDescription" class="form-label fw-semibold">Product Description</label>
-                    <textarea class="form-control" id="productDescription" name="productDescription" ngModel rows="4"
-                        placeholder="Enter product description"></textarea>
+                    <textarea class="form-control rounded-3" id="productDescription" name="productDescription" ngModel
+                        rows="4" placeholder="Enter product description"></textarea>
                 </div>
 
                 <!-- Image URL -->
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Product Image URL</label>
-                    <input type="url" class="form-control form-control-lg" name="productImageUrl" ngModel
+                    <input type="url" class="form-control form-control-lg rounded-pill" name="productImageUrl" ngModel
                         placeholder="Paste image URL" (input)="previewUrl = productForm.value.productImageUrl">
                 </div>
 
@@ -62,7 +63,7 @@
                     }
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg w-100 shadow">✅ Add Product</button>
+                <button type="submit" class="btn btn-primary btn-lg w-100 shadow-sm rounded-pill">✅ Add Product</button>
             </form>
         </div>
     </div>

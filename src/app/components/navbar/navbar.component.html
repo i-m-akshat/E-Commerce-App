@@ -1,95 +1,81 @@
-<nav class="navbar navbar-expand-lg custom-navbar shadow-sm fixed-top">
-    <div class="container-fluid">
+<nav class="new-design bg-white navbar navbar-expand-lg navbar-light sticky-top">
+    <div class="py-2 container-fluid px-md-5 d-flex align-items-center justify-content-between">
+
         <!-- Brand / Logo -->
-        <a routerLink="/" class="navbar-brand fw-bold text-white" routerLinkActive="active"
+        <a routerLink="/" class="navbar-brand fw-bold fs-4 text-primary" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact:true }">
-            ShopEase
+            Buyr.
         </a>
 
         <!-- Mobile Toggle -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Navbar Content -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                <!-- Home -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav me-3">
                 <li class="nav-item">
-                    <a routerLink="/" class="nav-link text-white" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact:true }">
-                        Home
-                    </a>
+                    <a routerLink="/" class="mx-2 nav-link" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact:true }">Home</a>
                 </li>
 
-                <!-- Seller -->
                 @if(isSellerLoggedIn){
                 <li class="nav-item">
-                    <a routerLink="/seller-home" class="nav-link text-white" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact:true }">
-                        Seller
-                    </a>
+                    <a routerLink="/seller-home" class="mx-2 nav-link" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact:true }">Seller</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" routerLink="seller-product" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact:true }">
-
-                        Product List
-                    </a>
+                    <a routerLink="seller-product" class="mx-2 nav-link" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact:true }">Product List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" routerLink="add-product" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact:true }">
-                        Add Product
-                    </a>
+                    <a class="mx-2 nav-link">{{sellerName}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }">
-                        {{sellerName}}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" (click)="Logout()">
-
-                        Logout
-                    </a>
+                    <a class="mx-2 nav-link" role="button" (click)="Logout()">Logout</a>
                 </li>
                 }@else {
-                <!-- Login -->
                 <li class="nav-item">
-                    <a routerLink="/login" class="nav-link text-white" routerLinkActive="active"
-                        [routerLinkActiveOptions]="{ exact:true }">
-                        Login
-                    </a>
+                    <a routerLink="/seller-auth" class="mx-2 nav-link" routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact:true }">Seller</a>
                 </li>
                 <li class="nav-item">
-                    <a routerLink="/seller-auth" class="nav-link text-white" routerLinkActive="active"
+                    <a routerLink="/cart" class="mx-2 nav-link cart-icon position-relative" routerLinkActive="active"
                         [routerLinkActiveOptions]="{ exact:true }">
-
-                        Seller
-                    </a>
-                </li>
-
-                <!-- Cart -->
-                <li class="nav-item">
-                    <a routerLink="/cart" class="nav-link cart-icon text-white position-relative"
-                        routerLinkActive="active" [routerLinkActiveOptions]="{ exact:true }">
-                        <i class="bi bi-cart"></i> Cart
+                        <fa-icon [icon]="faCartShopping"></fa-icon> Cart
                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             0
                         </span>
                     </a>
                 </li>
                 }
-
-
-
-
-
-
             </ul>
+
+            <!-- Search Bar + Suggestions -->
+            <div class="position-relative" style="flex:1; max-width:400px;">
+                <form class="d-flex" role="search">
+                    <div class="input-group">
+                        <input type="text" #searchInput class="form-control rounded-start-pill" [(ngModel)]="searchText"
+                            name="searchText" (input)="handleChange($event)" placeholder="Search products...">
+                        <button class="btn btn-primary rounded-end-pill" (click)="search(searchInput.value)">
+                            <fa-icon [icon]="faSearch"></fa-icon>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Suggestion box -->
+                @if(searchResults.length>0){
+                <ul class="list-group position-absolute mt-1 w-100 shadow-sm" style="z-index: 1000;">
+                    @for(item of searchResults;track $index){
+                    <li class="list-group-item list-group-item-action" (click)="selectResult(item.id)">
+                        {{item.productName}}
+                    </li>
+                    }
+                </ul>
+                }
+            </div>
         </div>
     </div>
 </nav>
