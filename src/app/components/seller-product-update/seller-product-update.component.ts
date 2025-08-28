@@ -1,23 +1,24 @@
-import { Component } from '@angular/core';
-import { Form, FormsModule } from '@angular/forms';
-import { Product } from '../../schema/product';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductServiceService } from '../../services/product-service.service';
+import { Component } from "@angular/core";
+import { Form, FormsModule } from "@angular/forms";
+import { Product } from "../../schema/product";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ProductServiceService } from "../../services/product-service.service";
 @Component({
-  selector: 'app-seller-product-update',
+  selector: "app-seller-product-update",
   imports: [FormsModule],
-  templateUrl: './seller-product-update.component.html',
-  styleUrl: './seller-product-update.component.css',
+  templateUrl: "./seller-product-update.component.html",
+  styleUrl: "./seller-product-update.component.css",
 })
 export class SellerProductUpdateComponent {
   product: Product = {
-    id: '',
-    productName: '',
+    id: "",
+    productName: "",
     productPrice: 0,
-    productColor: '#000000',
-    productCategory: '',
-    productDescription: '',
-    productImageUrl: '',
+    productColor: "#000000",
+    productCategory: "",
+    productDescription: "",
+    productImageUrl: "",
+    productQuantity: undefined,
   };
 
   constructor(
@@ -27,11 +28,11 @@ export class SellerProductUpdateComponent {
   ) {}
   ngOnInit() {
     //getting the project here
-    let productId = this.route.snapshot.paramMap.get('id');
+    let productId = this.route.snapshot.paramMap.get("id");
 
-    this.getProductByid(productId ? productId : '');
+    this.getProductByid(productId ? productId : "");
   }
-  previewUrl: string = '';
+  previewUrl: string = "";
   onUpdate(data: Product, form: Form) {}
 
   getProductByid(id: string) {
@@ -44,8 +45,8 @@ export class SellerProductUpdateComponent {
     this.service.updateProduct(id, product).subscribe((result: Product) => {
       console.log(result);
       if (result != null) {
-        alert('Update successfull');
-        this.rotuer.navigateByUrl('seller-product');
+        alert("Update successfull");
+        this.rotuer.navigateByUrl("seller-product");
       }
     });
   }

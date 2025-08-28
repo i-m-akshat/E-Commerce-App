@@ -49,6 +49,7 @@ export class SellerProductViewComponent implements OnInit {
     productCategory: "",
     productDescription: "",
     productImageUrl: "",
+    productQuantity: undefined,
   };
 
   constructor(

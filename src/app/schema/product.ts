@@ -7,4 +7,5 @@ export interface Product {
   productCategory: string;
   productDescription: string;
   productImageUrl: string;
+  productQuantity: number | undefined;
 }

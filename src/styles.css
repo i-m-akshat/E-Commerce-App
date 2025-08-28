@@ -465,3 +465,40 @@ body {
   color: #fff !important;
   cursor: pointer;
 }
+/* Quantity buttons */
+.quantity-btn {
+  border-radius: 50px;
+  font-weight: 600;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+  background-color: #ef6f6c; /* Coral accent */
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Quantity input */
+.quantity-input {
+  text-align: center;
+  border-radius: 12px;
+}
+
+/* Remove button */
+.remove-btn {
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #c82333; /* slightly darker red */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

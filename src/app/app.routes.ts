@@ -13,6 +13,7 @@ import { ProductDetailsComponent } from "./components/product-details/product-de
 import { ProductsComponent } from "./components/products/products.component";
 import { UserLoginComponent } from "./components/user-login/user-login.component";
 import { UserSignUpComponent } from "./components/user-sign-up/user-sign-up.component";
+import { CartComponent } from "./components/cart/cart.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -63,5 +64,9 @@ export const routes: Routes = [
   {
     path: "user-sign-up",
     component: UserSignUpComponent,
+  },
+  {
+    path: "cart",
+    component: CartComponent,
   },
 ];

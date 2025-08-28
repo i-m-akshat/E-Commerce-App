@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductServiceService } from "../../services/product-service.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Product } from "../../schema/product";
 import { FormsModule } from "@angular/forms";
+import { UserService } from "../../services/user.service";
+import { CartService } from "../../services/cart.service";
 
 @Component({
   selector: "app-product-details",
@@ -11,6 +13,7 @@ import { FormsModule } from "@angular/forms";
   styleUrl: "./product-details.component.css",
 })
 export class ProductDetailsComponent implements OnInit {
+  isUserLoggedIn: boolean = false;
   productDetails: Product = {
     productCategory: "",
     productColor: "",
@@ -19,14 +22,21 @@ export class ProductDetailsComponent implements OnInit {
     productName: "",
     productPrice: 0,
     id: "",
+    productQuantity: undefined,
   };
   quantity: number = 1;
   id: string | null = "";
   constructor(
     private service: ProductServiceService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private userServ: UserService,
+    private cartServ: CartService,
+    private route: Router
   ) {}
   ngOnInit(): void {
+    this.userServ.getLoginStatus().subscribe((IsLoggedin) => {
+      this.isUserLoggedIn = IsLoggedin;
+    });
     this.activeRoute.paramMap.subscribe((params) => {
       this.id = params.get("id");
       //getting productdetails
@@ -49,6 +59,21 @@ export class ProductDetailsComponent implements OnInit {
       this.quantity -= 1;
     } else {
       alert("quantity should not be 0");
+    }
+  }
+  AddToCart() {
+    if (this.productDetails) {
+      this.productDetails.productQuantity = this.quantity;
+
+      if (this.isUserLoggedIn) {
+        console.warn(this.productDetails);
+      } else {
+        var res = this.cartServ.AddToCart_Local(this.productDetails);
+        if (res) {
+          alert("Added To Cart");
+          this.route.navigate(["/cart"]);
+        }
+      }
     }
   }
 }

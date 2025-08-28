@@ -11,6 +11,7 @@ import { FormsModule } from "@angular/forms";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { UserService } from "../../services/user.service";
 import { User } from "../../schema/user";
+import { CartService } from "../../services/cart.service";
 @Component({
   selector: "app-navbar",
   standalone: true,
@@ -19,6 +20,7 @@ import { User } from "../../schema/user";
   styleUrls: ["./navbar.component.css"],
 })
 export class NavbarComponent {
+  cartItemsCount: number = 0;
   isUserLoggedIn: boolean = false;
   userName: string = "";
   searchResults: Product[] = [];
@@ -27,7 +29,8 @@ export class NavbarComponent {
     private sellerServ: SellerService,
     private route: Router,
     private productServ: ProductServiceService,
-    private userServ: UserService
+    private userServ: UserService,
+    private cartServ: CartService
   ) {}
   isSellerLoggedIn: boolean = false;
   sellerName: string = "";
@@ -70,7 +73,12 @@ export class NavbarComponent {
           this.user = { email: "", fullName: "", password: "" };
           this.userName = "";
         }
+      } else {
+        this.cartItemsCount = this.cartServ.countCartItems_local();
       }
+    });
+    this.cartServ.cartChanges.subscribe((count) => {
+      this.cartItemsCount = count;
     });
   }
   Logout() {
