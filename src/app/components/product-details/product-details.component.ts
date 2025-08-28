@@ -5,6 +5,7 @@ import { Product } from "../../schema/product";
 import { FormsModule } from "@angular/forms";
 import { UserService } from "../../services/user.service";
 import { CartService } from "../../services/cart.service";
+import { cartItems } from "../../schema/cart";
 
 @Component({
   selector: "app-product-details",
@@ -26,6 +27,7 @@ export class ProductDetailsComponent implements OnInit {
   };
   quantity: number = 1;
   id: string | null = "";
+
   constructor(
     private service: ProductServiceService,
     private activeRoute: ActivatedRoute,
@@ -33,46 +35,77 @@ export class ProductDetailsComponent implements OnInit {
     private cartServ: CartService,
     private route: Router
   ) {}
+
   ngOnInit(): void {
-    this.userServ.getLoginStatus().subscribe((IsLoggedin) => {
-      this.isUserLoggedIn = IsLoggedin;
+    this.userServ.getLoginStatus().subscribe((status) => {
+      this.isUserLoggedIn = status;
     });
+
     this.activeRoute.paramMap.subscribe((params) => {
       this.id = params.get("id");
-      //getting productdetails
-      this.service
-        .getProductByID(this.id ?? "")
-        .subscribe((result: Product) => {
-          this.productDetails = result;
+      if (this.id) {
+        this.service.getProductByID(this.id).subscribe((product) => {
+          this.productDetails = product;
         });
+      }
     });
   }
+
   increaseQuantity() {
-    if (this.quantity != 20) {
+    if (this.quantity < 20) {
       this.quantity += 1;
     } else {
-      alert("quantity should not exceed 20");
+      alert("Quantity should not exceed 20");
     }
   }
+
   decreaseQuantity() {
-    if (this.quantity != 1) {
+    if (this.quantity > 1) {
       this.quantity -= 1;
     } else {
-      alert("quantity should not be 0");
+      alert("Quantity should not be less than 1");
     }
   }
-  AddToCart() {
-    if (this.productDetails) {
-      this.productDetails.productQuantity = this.quantity;
 
-      if (this.isUserLoggedIn) {
-        console.warn(this.productDetails);
-      } else {
-        var res = this.cartServ.AddToCart_Local(this.productDetails);
-        if (res) {
-          alert("Added To Cart");
-          this.route.navigate(["/cart"]);
-        }
+  AddToCart() {
+    if (!this.productDetails) return;
+
+    const qty = this.quantity > 0 ? this.quantity : 1;
+    this.productDetails.productQuantity = qty;
+
+    if (this.isUserLoggedIn) {
+      const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+      const email = user.email ?? "";
+
+      const cartPayload: cartItems = {
+        productId: this.productDetails.id, // use productId for backend
+        productName: this.productDetails.productName,
+        productPrice: this.productDetails.productPrice,
+        productColor: this.productDetails.productColor,
+        productCategory: this.productDetails.productCategory,
+        productDescription: this.productDetails.productDescription,
+        productImageUrl: this.productDetails.productImageUrl,
+        productQuantity: qty,
+        email: email,
+        id: "", // optional, backend should generate if needed
+      };
+
+      this.cartServ.AddToCart(cartPayload).subscribe({
+        next: () => {
+          alert("Added to cart");
+          this.cartServ.emitCartCount();
+        },
+        error: (err) => {
+          console.error("Error adding to cart:", err);
+          alert("Failed to add to cart. Please try again.");
+        },
+      });
+    } else {
+      const res = this.cartServ.AddToCart_Local(this.productDetails);
+      if (res) {
+        alert("Added to cart");
+        this.cartServ.emitCartCount();
+        this.route.navigate(["/cart"]);
       }
     }
   }

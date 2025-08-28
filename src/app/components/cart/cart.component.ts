@@ -21,6 +21,9 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getLoginStatus().subscribe((isLoggedIn) => {
       if (isLoggedIn) {
+        this.cartService.GetCart_Db().subscribe((result) => {
+          this.cartProducts = result;
+        });
       } else {
         this.cartProducts = JSON.parse(localStorage.getItem("cart") ?? "[]");
       }
@@ -28,11 +31,26 @@ export class CartComponent implements OnInit {
     });
   }
   RemoveProduct(id: string) {
-    this.cartService.RemoveProduct_Local(id);
-    this.cartProducts = JSON.parse(
-      localStorage.getItem("cart") ?? "[]"
-    ) as Product[];
-    this.CalculatePrice();
+    this.userService.getLoginStatus().subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.cartService.RemoveProduct_DB(id).subscribe((result) => {
+          if (result) {
+            alert("Removed successfully");
+            // refresh cart after removal
+            this.cartService.GetCart_Db().subscribe((updatedCart) => {
+              this.cartProducts = updatedCart;
+              this.CalculatePrice();
+              this.cartService.emitCartCount();
+            });
+          }
+        });
+      } else {
+        this.cartService.RemoveProduct_Local(id);
+        this.cartProducts = this.cartService.GetCart_Local();
+        this.CalculatePrice();
+        this.cartService.emitCartCount();
+      }
+    });
   }
 
   decreaseQuantity(id: string) {

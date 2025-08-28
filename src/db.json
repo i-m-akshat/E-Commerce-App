@@ -77,5 +77,89 @@
       "password": "asdf",
       "id": 2
     }
+  ],
+  "cart": [
+    {
+      "id": "1d59",
+      "productName": "Leo Creation 144 TC ",
+      "productPrice": 376,
+      "productColor": "#2de515",
+      "productCategory": "home",
+      "productDescription": "Cotton Double Jaipuri Prints Flat Bedsheet  (Pack of 1, Green, Dark Green, White, Olive Green)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/bedsheet/s/s/8/1-double-bedsheet-and-2-pillow-covers-1-21-flat-war-trade-original-imaheu7xvmvpuzgy.jpeg?q=70&amp;crop=false",
+      "productQuantity": 5,
+      "email": "akshatdwivedi@gmail.com"
+    },
+    {
+      "id": "b087",
+      "productName": "OnePlus Nord Buds 2r",
+      "productPrice": 1799,
+      "productColor": "",
+      "productCategory": "electronics",
+      "productDescription": "In Ear Earbuds with Dual Mic & AI Crystal Clear Call Bluetooth  (Deep Grey, True Wireless)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/headphone/m/n/o/e510a-oneplus-original-imahdum7q6jx57gf.jpeg?q=70&crop=false",
+      "productQuantity": 1,
+      "email": "akshatdwivedi@gmail.com"
+    },
+    {
+      "productId": "5e40",
+      "productName": "Samsung S24Fe",
+      "productPrice": 29999,
+      "productColor": "#07c7ed",
+      "productCategory": "electronics",
+      "productDescription": "sam soong",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false",
+      "productQuantity": 1,
+      "email": "akshatdwivedi@gmail.com",
+      "id": "srQiMDo"
+    },
+    {
+      "productId": "5e40",
+      "productName": "Samsung S24Fe",
+      "productPrice": 29999,
+      "productColor": "#07c7ed",
+      "productCategory": "electronics",
+      "productDescription": "sam soong",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false",
+      "productQuantity": 1,
+      "email": "akshatdwivedi@gmail.com",
+      "id": "UEKxJSN"
+    },
+    {
+      "productId": "1d59",
+      "productName": "Leo Creation 144 TC ",
+      "productPrice": 376,
+      "productColor": "#2de515",
+      "productCategory": "home",
+      "productDescription": "Cotton Double Jaipuri Prints Flat Bedsheet  (Pack of 1, Green, Dark Green, White, Olive Green)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/bedsheet/s/s/8/1-double-bedsheet-and-2-pillow-covers-1-21-flat-war-trade-original-imaheu7xvmvpuzgy.jpeg?q=70&amp;crop=false",
+      "productQuantity": 1,
+      "email": "akshatdwivedi@gmail.com",
+      "id": "ZzEIDtD"
+    },
+    {
+      "productId": "b087",
+      "productName": "OnePlus Nord Buds 2r",
+      "productPrice": 1799,
+      "productColor": "",
+      "productCategory": "electronics",
+      "productDescription": "In Ear Earbuds with Dual Mic & AI Crystal Clear Call Bluetooth  (Deep Grey, True Wireless)",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/headphone/m/n/o/e510a-oneplus-original-imahdum7q6jx57gf.jpeg?q=70&crop=false",
+      "productQuantity": 1,
+      "email": "akshatdwivedi@gmail.com",
+      "id": "W2yW40p"
+    },
+    {
+      "productId": "5e40",
+      "productName": "Samsung S24Fe",
+      "productPrice": 29999,
+      "productColor": "#07c7ed",
+      "productCategory": "electronics",
+      "productDescription": "sam soong",
+      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false",
+      "productQuantity": 1,
+      "email": "akshatdwivedi@gmail.com",
+      "id": "g5_-Wty"
+    }
   ]
 }

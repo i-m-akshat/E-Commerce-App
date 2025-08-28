@@ -3,6 +3,7 @@ import { Router, RouterModule } from "@angular/router";
 import { FormsModule, NgForm } from "@angular/forms";
 import { User, userLogin } from "../../schema/user";
 import { UserService } from "../../services/user.service";
+import { CartService } from "../../services/cart.service";
 
 @Component({
   selector: "app-user-login",
@@ -11,7 +12,11 @@ import { UserService } from "../../services/user.service";
   styleUrls: ["./user-login.component.css"],
 })
 export class UserLoginComponent implements OnInit {
-  constructor(private service: UserService, private router: Router) {}
+  constructor(
+    private service: UserService,
+    private router: Router,
+    private cartServ: CartService
+  ) {}
   ngOnInit(): void {
     this.service.getLoginStatus().subscribe((isloggedIn) => {
       if (isloggedIn) {
@@ -25,6 +30,7 @@ export class UserLoginComponent implements OnInit {
         if (result && result.length > 0) {
           localStorage.setItem("user", JSON.stringify(result[0]));
           this.service.setLoginStatus(true);
+          this.cartServ.moveLocalToDb(result[0].email);
           this.router.navigate([""]);
         } else {
           alert("No user found !");
