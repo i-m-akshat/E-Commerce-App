@@ -1,59 +1,39 @@
-# ECommerceAngular
+# 🛒 Angular E-Commerce Practice Project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+Welcome to my **Angular E-Commerce Practice Project**! This is a hands-on project I built to practice Angular concepts, component-based architecture, and basic e-commerce functionality like product listing, cart management, and checkout simulation.
 
-## Development server
+---
 
-To start a local development server, run:
+## 💡 Demo
 
-```bash
-ng serve
-```
+Below is a demo of the project in action:
+https://github.com/user-attachments/assets/97bea86d-477a-4376-bbd0-b38807f51d28
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🚀 Features
 
-```bash
-ng generate component component-name
-```
+- **Product Listing:** Browse all products with images, names, and prices.
+- **Shopping Cart:** Add, remove, and update product quantities.
+- **Checkout Simulation:** Simulate a simple checkout process.
+- **Responsive Design:** Works well on mobile, tablet, and desktop screens.
+- **Angular Routing:** Navigate easily between pages.
+- **Local Storage:** Persist cart items even after refreshing the page.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🛠️ Tech Stack
 
-## Building
+- **Frontend:** Angular 17  
+- **Styling:** CSS / SCSS  
+- **State Management:** Angular Services & Observables  
+- **Optional:** Local Storage for cart persistence
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## ⚡ How to Run Locally
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/i-m-akshat/E-Commerce-App.git
