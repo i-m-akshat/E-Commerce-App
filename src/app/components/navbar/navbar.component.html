@@ -1,10 +1,11 @@
 <nav class="new-design bg-white navbar navbar-expand-lg navbar-light sticky-top">
     <div class="py-2 container-fluid px-md-5 d-flex align-items-center justify-content-between">
 
-        <!-- Brand / Logo -->
-        <a routerLink="/" class="navbar-brand fw-bold fs-4 text-primary" routerLinkActive="active"
+        <!-- Brand / Logo with Text -->
+        <a routerLink="/" class="navbar-brand d-flex align-items-center" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact:true }">
-            Buyr.
+            <img src="assets/maidLogo.png" alt="Buyr Logo" style="height: 80px; width: auto; margin-right: 10px;" />
+            <span class="fw-bold fs-4 text-primary">Buyr.</span>
         </a>
 
         <!-- Mobile Toggle -->
@@ -47,8 +48,6 @@
                         [routerLinkActiveOptions]="{ exact:true }">Seller</a>
                 </li>
                 }
-
-
                 }
             </ul>
 
@@ -98,17 +97,13 @@
                 </a>
                 }
                 }
-                <!-- <li class="nav-item"> -->
                 <a routerLink="/cart" class="btn btn-primary position-relative d-flex align-items-center mx-2">
                     <fa-icon [icon]="faCartShopping" class="me-2"></fa-icon>
                     <span class="fw-bold">Cart</span>
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
                         style="font-size: 0.7rem;">{{cartItemsCount}}</span>
                 </a>
-                <!-- </li> -->
             </div>
-
-
         </div>
     </div>
 </nav>

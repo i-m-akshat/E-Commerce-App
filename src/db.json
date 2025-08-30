@@ -86,19 +86,6 @@
   "cart": [],
   "orders": [
     {
-      "firstName": "asdf",
-      "lastName": "asdf",
-      "email": "asdf",
-      "contact": "asdf",
-      "address": "asdf",
-      "country": "India",
-      "state": "Maharashtra",
-      "zip": "asdfasd",
-      "totalPrice": 60429,
-      "userId": 3,
-      "id": 1
-    },
-    {
       "firstName": "Akshat",
       "lastName": "Dwivedi",
       "email": "asdf",
@@ -188,19 +175,6 @@
       "totalPrice": 30099,
       "userId": 2,
       "id": 8
-    },
-    {
-      "firstName": "asdf",
-      "lastName": "asdf",
-      "email": "asdf@gmail.com",
-      "contact": "asdf",
-      "address": "asdf",
-      "country": "Other",
-      "state": "Maharashtra",
-      "zip": "123",
-      "totalPrice": 30099,
-      "userId": 3,
-      "id": 9
     }
   ]
 }

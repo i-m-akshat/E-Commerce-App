@@ -17,4 +17,7 @@ export class OrderService {
       "http://localhost:3000/orders?userId=" + userId
     );
   }
+  cancelOrder(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`http://localhost:3000/orders/${id}`);
+  }
 }

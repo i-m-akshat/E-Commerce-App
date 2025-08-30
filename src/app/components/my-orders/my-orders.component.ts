@@ -15,11 +15,21 @@ export class MyOrdersComponent implements OnInit {
   faCartPlus = faCartPlus;
   constructor(private orderServ: OrderService) {}
   ngOnInit(): void {
+    this.getOrderList();
+  }
+  getOrderList() {
     let user = JSON.parse(localStorage.getItem("user") ?? "");
     if (user) {
       this.orderServ.getOrderList(user.id).subscribe((result: Order[]) => {
         this.orders = result;
       });
     }
+  }
+  cancelOrder(id: number) {
+    return this.orderServ.cancelOrder(id).subscribe((result) => {
+      console.log(result);
+      alert("Order have been cancelled");
+      this.getOrderList();
+    });
   }
 }

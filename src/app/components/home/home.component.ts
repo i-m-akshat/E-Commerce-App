@@ -5,10 +5,12 @@ import { ProductServiceService } from "../../services/product-service.service";
 import { Router } from "@angular/router";
 import { UserService } from "../../services/user.service";
 import { CartService } from "../../services/cart.service";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: "app-home",
-  imports: [NgbCarouselModule],
+  imports: [NgbCarouselModule, FormsModule, CommonModule],
   templateUrl: "./home.component.html",
   styleUrl: "./home.component.css",
 })

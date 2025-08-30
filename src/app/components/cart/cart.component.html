@@ -1,8 +1,22 @@
 <!-- Cart Section -->
 <div class="container my-5">
-    <h2 class="section-title text-center">Your Cart</h2>
+
 
     <div class="row">
+        @if(cartDb.length === 0 && cartProducts.length === 0){
+        <div class="justify-content-center align-items-center d-flex flex-column">
+            <img src="assets/maid.gif" alt="Empty Cart - Kawaii" class="img-fluid mb-3" style="max-width: 200px;">
+            <h4 class="fw-bold text-pink">Onii-chan, this cart is so empty! 😿</h4>
+            <p class="text-muted" style="font-style: italic;">
+                Can we fill it with yummy treats, please? 💖
+            </p>
+            <a href="/products" class="btn btn-pink btn-lg mt-3" style="background-color: #ff7eb9; border:none;">
+                Go Shopping! 🛍️
+            </a>
+        </div>
+
+        }@else{
+        <h2 class="section-title text-center">Your Cart</h2>
         <!-- Cart Items -->
         <div class="col-lg-8 col-md-12 mb-4">
             <div class="card mb-4 p-3">
@@ -120,6 +134,8 @@
             </div>
         </div>
         }
+        }
+
 
     </div>
 </div>

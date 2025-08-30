@@ -5,12 +5,11 @@
                 <h1 class="section-title">My Orders</h1>
             </div>
         </div>
+        @if (orders && orders.length > 0) {
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <!-- Order Card 1 -->
-            @for(item of orders ;track $index){
+            @for (item of orders; track $index) {
             <div class="col">
                 <div class="card product-card h-100 shadow-sm">
-
                     <!-- Header: Order ID + Status -->
                     <div class="order-card-header d-flex justify-content-between align-items-center p-3">
                         <h5 class="mb-0 text-color-dark">Order #{{item.id}}</h5>
@@ -20,19 +19,29 @@
                     <!-- Body: Price + Image -->
                     <div class="order-card-body text-center p-3">
                         <fa-icon [icon]="faCartPlus" class="text-primary mb-2" style="font-size: 3rem;"></fa-icon>
-
                         <p class="mb-0 text-color-light">Total: <strong
                                 class="text-color-dark">₹{{item.totalPrice}}</strong></p>
                     </div>
 
                     <!-- Footer: Cancel button -->
                     <div class="order-card-footer d-flex justify-content-center p-3">
-                        <button class="btn btn-sm btn-danger">Cancel Order</button>
+                        <button class="btn btn-sm btn-danger" (click)="cancelOrder((item.id ?? 0))">Cancel
+                            Order</button>
                     </div>
-
                 </div>
             </div>
-
             }
         </div>
+        } @else {
+        <div class="row justify-content-center text-center">
+            <div class="col-12 col-md-6">
+                <img src="assets/footer2.png" alt="Anime Sister" class="img-fluid rounded-3 mb-3" />
+                <h3 class="text-color-dark fw-bold">Oh no, oni-chan! No orders yet! 😿</h3>
+                <p class="lead text-muted">Let your big sis guide you to some kawaii treasures! Shop now and fill your
+                    cart with love! 💕✨</p>
+                <a href="/products" class="btn btn-primary btn-lg rounded-pill px-4 py-2 shadow-sm">Shop Now, Desu~!</a>
+            </div>
+        </div>
+        }
     </div>
+</div>
