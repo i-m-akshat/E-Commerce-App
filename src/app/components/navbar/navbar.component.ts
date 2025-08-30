@@ -6,6 +6,7 @@ import {
   faSearch,
   faCartShopping,
   faUser,
+  faB,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { UserService } from "../../services/user.service";
@@ -14,8 +15,7 @@ import { SellerService } from "../../services/seller.service";
 import { ProductServiceService } from "../../services/product-service.service";
 
 import { Product } from "../../schema/product";
-import { Seller } from "../../schema/seller";
-import { User } from "../../schema/user";
+import { faBox } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-navbar",
@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
   faCartShopping = faCartShopping;
   faSearch = faSearch;
   faUser = faUser;
-
+  faBox = faBox;
   // User & Seller state
   isUserLoggedIn: boolean = false;
   userName: string = "";

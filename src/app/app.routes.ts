@@ -16,6 +16,7 @@ import { UserSignUpComponent } from "./components/user-sign-up/user-sign-up.comp
 import { CartComponent } from "./components/cart/cart.component";
 import { CheckoutComponent } from "./components/checkout/checkout.component";
 import { userGuardGuard } from "./user-guard.guard";
+import { MyOrdersComponent } from "./components/my-orders/my-orders.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -73,8 +74,12 @@ export const routes: Routes = [
   },
   {
     path: "checkout",
-
     component: CheckoutComponent,
+    canActivate: [userGuardGuard],
+  },
+  {
+    path: "my-orders",
+    component: MyOrdersComponent,
     canActivate: [userGuardGuard],
   },
 ];

@@ -86,6 +86,11 @@
                 <button class="btn btn-outline-danger" (click)="logoutUser()">
                     Logout
                 </button>
+                <!-- My Orders -->
+                <a routerLink="/my-orders" class="btn btn-primary position-relative d-flex align-items-center mx-2">
+                    <fa-icon [icon]="faBox"></fa-icon>
+                    <span class="ms-2">My Orders</span>
+                </a>
                 }@else{
                 <a routerLink="/user-login" class="btn btn-outline-primary d-flex align-items-center">
                     <fa-icon [icon]="faUser"></fa-icon>

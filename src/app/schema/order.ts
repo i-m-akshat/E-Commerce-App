@@ -9,4 +9,5 @@ export interface Order {
   zip: string;
   totalPrice: number;
   userId: number;
+  id: number | undefined;
 }

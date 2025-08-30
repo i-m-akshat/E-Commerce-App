@@ -83,32 +83,7 @@
       "id": 3
     }
   ],
-  "cart": [
-    {
-      "productId": "5e40",
-      "productName": "Samsung S24Fe",
-      "productPrice": 29999,
-      "productColor": "#07c7ed",
-      "productCategory": "electronics",
-      "productDescription": "sam soong",
-      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/mobile/r/s/z/-original-imahcfwmdvbcgdzs.jpeg?q=70&crop=false",
-      "productQuantity": 2,
-      "email": "i.m.akshat@gmail.com",
-      "id": 1
-    },
-    {
-      "productId": "e2fe",
-      "productName": "BEARDO Hair CLAY Wax for Men, 100 gm",
-      "productPrice": 331,
-      "productColor": "#100f0f",
-      "productCategory": "fashion",
-      "productDescription": "Matte Finish with volume| Strong Hold re-stylable Hair styles | With Kaolin Clay | Used by salon professionals Hair Clay  (100 g)",
-      "productImageUrl": "https://rukminim2.flixcart.com/image/416/416/xif0q/hair-styling/f/w/y/-original-imagv3zh9pdkryxa.jpeg?q=70&crop=false",
-      "productQuantity": 1,
-      "email": "i.m.akshat@gmail.com",
-      "id": 2
-    }
-  ],
+  "cart": [],
   "orders": [
     {
       "firstName": "asdf",
@@ -122,6 +97,110 @@
       "totalPrice": 60429,
       "userId": 3,
       "id": 1
+    },
+    {
+      "firstName": "Akshat",
+      "lastName": "Dwivedi",
+      "email": "asdf",
+      "contact": "asdf",
+      "address": "asdf",
+      "country": "India",
+      "state": "Karnataka",
+      "zip": "12345",
+      "totalPrice": 781,
+      "userId": 2,
+      "id": 2
+    },
+    {
+      "firstName": "Akshat",
+      "lastName": "Dwivedi",
+      "email": "asdf",
+      "contact": "asdf",
+      "address": "asdf",
+      "country": "India",
+      "state": "Karnataka",
+      "zip": "12345",
+      "totalPrice": 781,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "firstName": "asdfa",
+      "lastName": "asdf",
+      "email": "asdfa",
+      "contact": "asdfasdf",
+      "address": "asdfasdf",
+      "country": "India",
+      "state": "Maharashtra",
+      "zip": "asdfasdf",
+      "totalPrice": 781,
+      "userId": 2,
+      "id": 4
+    },
+    {
+      "firstName": "asdf",
+      "lastName": "asdf",
+      "email": "asdf",
+      "contact": "asdf",
+      "address": "asdf",
+      "country": "Other",
+      "state": "Maharashtra",
+      "zip": "12345",
+      "totalPrice": 781,
+      "userId": 2,
+      "id": 5
+    },
+    {
+      "firstName": "asd",
+      "lastName": "fasd",
+      "email": "fasdf",
+      "contact": "asdf",
+      "address": "asdf",
+      "country": "Other",
+      "state": "Karnataka",
+      "zip": "asdfasdf",
+      "totalPrice": 781,
+      "userId": 2,
+      "id": 6
+    },
+    {
+      "firstName": "sdfg",
+      "lastName": "sdfg",
+      "email": "sdfgs",
+      "contact": "sdfgs",
+      "address": "dfgsd",
+      "country": "India",
+      "state": "Maharashtra",
+      "zip": "asdfasdfdfg",
+      "totalPrice": 30099,
+      "userId": 2,
+      "id": 7
+    },
+    {
+      "firstName": "asdf",
+      "lastName": "a",
+      "email": "akshatdwivedi@gmail.com",
+      "contact": "12354123",
+      "address": "asdfasdf",
+      "country": "India",
+      "state": "Maharashtra",
+      "zip": "12354",
+      "totalPrice": 30099,
+      "userId": 2,
+      "id": 8
+    },
+    {
+      "firstName": "asdf",
+      "lastName": "asdf",
+      "email": "asdf@gmail.com",
+      "contact": "asdf",
+      "address": "asdf",
+      "country": "Other",
+      "state": "Maharashtra",
+      "zip": "123",
+      "totalPrice": 30099,
+      "userId": 3,
+      "id": 9
     }
   ]
 }

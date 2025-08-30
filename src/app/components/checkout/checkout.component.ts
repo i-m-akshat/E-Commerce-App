@@ -58,8 +58,17 @@ export class CheckoutComponent implements OnInit {
       };
       this.orderServ.orderNow(orderDetails).subscribe((result) => {
         if (result) {
-          alert("Ordered Successfully");
-          this.router.navigate(["/"]);
+          this.cart.forEach((item) => {
+            this.cartServ
+              .RemoveCartItems(Number(item.id))
+              .subscribe((result) => {
+                if (result) {
+                  this.cartServ.emitCartCount();
+                  alert("Ordered Successfully");
+                  this.router.navigate(["/"]);
+                }
+              });
+          });
         }
       });
     }

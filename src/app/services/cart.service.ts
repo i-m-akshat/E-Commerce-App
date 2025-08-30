@@ -110,6 +110,10 @@ export class CartService {
     cart = cart.filter((p) => p.id !== id);
     this.UpdateCart_Local(cart, email);
   }
+  RemoveCartItems(id: number) {
+    console.warn(" calling http://localhost:3000/cart?id=" + id);
+    return this.httpClient.delete("http://localhost:3000/cart/" + id);
+  }
 
   countCartItems_local(email: string): number {
     return this.GetCart_Local(email).length;

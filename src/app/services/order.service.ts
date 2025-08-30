@@ -12,4 +12,9 @@ export class OrderService {
   orderNow(data: Order): Observable<Order> {
     return this.httpClient.post<Order>("http://localhost:3000/orders", data);
   }
+  getOrderList(userId: string): Observable<Order[]> {
+    return this.httpClient.get<Order[]>(
+      "http://localhost:3000/orders?userId=" + userId
+    );
+  }
 }
