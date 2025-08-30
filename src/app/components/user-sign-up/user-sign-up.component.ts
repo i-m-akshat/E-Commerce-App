@@ -37,6 +37,7 @@ export class UserSignUpComponent implements OnInit {
           if (result.body != null) {
             result.body.password = "";
             localStorage.setItem("user", JSON.stringify(result.body));
+            this.service.setLoginStatus(true);
             alert("Sign Up Successfull");
             this.router.navigate(["/"]);
           }

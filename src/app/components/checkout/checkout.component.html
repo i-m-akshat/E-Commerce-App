@@ -1,0 +1,108 @@
+<div class="container my-5">
+    <div class="row">
+        <!-- Left Column: Checkout Form -->
+        <div class="col-lg-8 mb-4">
+            <div class="card p-4">
+                <h2 class="text-center mb-4 section-title">Checkout</h2>
+
+                <!-- Billing Details -->
+                <h4 class="mb-3">Billing Address</h4>
+                <form class="needs-validation" #checkoutForm="ngForm" novalidate>
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">First name</label>
+                            <input type="text" ngModel name="firstName" class="form-control" id="firstName"
+                                placeholder="John" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Last name</label>
+                            <input type="text" ngModel name="lastName" class="form-control" id="lastName"
+                                placeholder="Doe" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email <span
+                                    class="text-muted">(Optional)</span></label>
+                            <input type="email" ngModel name="email" class="form-control" id="email"
+                                placeholder="you@example.com">
+                        </div>
+                        <div class="col-12">
+                            <label for="contact" class="form-label">Contact</label>
+                            <input type="tel" ngModel name="contact" class="form-control" id="contact"
+                                placeholder="Enter mobile no">
+                        </div>
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" ngModel name="address" class="form-control" id="address"
+                                placeholder="1234 Main St" required>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" ngModel name="country" id="country" required>
+                                <option value="">Choose...</option>
+                                <option>India</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="state" class="form-label">State</label>
+                            <select class="form-select" ngModel name="state" id="state" required>
+                                <option value="">Choose...</option>
+                                <option>Maharashtra</option>
+                                <option>Karnataka</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="zip" class="form-label">Zip</label>
+                            <input type="text" ngModel name="zip" class="form-control" id="zip" placeholder="123456"
+                                required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="col-lg-4 mb-4">
+            <div class="card p-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-gradient">Your cart</span>
+                    <span class="badge rounded-pill bg-danger">{{ cart.length }}</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    @for(item of cart;track $index){
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">{{ item.productName }}</h6>
+                            <small class="text-muted">{{ item.productDescription }}</small>
+                        </div>
+                        <span class="text-muted">₹{{ (item.productPrice) * (item.productQuantity ?? 1) }}</span>
+                    </li>
+                    }
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Subtotal (INR)</span>
+                        <strong>₹{{ subTotal }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Shipping</span>
+                        <strong>₹{{ shippingCost }}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Payment Method</span>
+                        <strong>Cash on Delivery (COD)</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between fs-5 fw-bold">
+                        <span>Total (INR)</span>
+                        <strong>₹{{ Total }}</strong>
+                    </li>
+                </ul>
+
+                <!-- Button outside form -->
+                <button class="btn btn-primary w-100" [disabled]="!checkoutForm.valid"
+                    (click)="handleOrder(checkoutForm)">
+                    Place Order
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

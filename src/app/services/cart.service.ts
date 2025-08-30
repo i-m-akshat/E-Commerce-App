@@ -1,128 +1,196 @@
-import { EventEmitter, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Product } from "../schema/product";
 import { cartItems } from "../schema/cart";
 import { HttpClient } from "@angular/common/http";
-import { forkJoin, map, Observable, tap } from "rxjs";
+import { forkJoin, map, Observable } from "rxjs";
 import { UserService } from "./user.service";
-
+import { BehaviorSubject } from "rxjs";
+import { of } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
 export class CartService {
-  cartChanges: EventEmitter<number> = new EventEmitter<number>();
+  // ---------------- Cart Count ----------------
+  private cartCount = new BehaviorSubject<number>(0);
+  cartChanges$ = this.cartCount.asObservable(); // Expose as observable
 
   constructor(private httpClient: HttpClient, private userServ: UserService) {}
 
-  AddToCart_Local(productDetails: Product): boolean {
-    let localCart: Product[] = this.GetCart_Local();
+  // ---------------- Local Cart ----------------
+  AddToCart_Local(product: Product, email: string): boolean {
+    let localCart: Product[] = this.GetCart_Local(email);
     if (!Array.isArray(localCart)) localCart = [];
 
-    const existingProduct = localCart.find((p) => p.id === productDetails.id);
-    if (existingProduct) {
-      existingProduct.productQuantity =
-        (existingProduct.productQuantity ?? 1) +
-        (productDetails.productQuantity ?? 1);
+    const existing = localCart.find((p) => p.id === product.id);
+    if (existing) {
+      existing.productQuantity =
+        (existing.productQuantity ?? 1) + (product.productQuantity ?? 1);
     } else {
-      productDetails.productQuantity = productDetails.productQuantity ?? 1;
-      localCart.push(productDetails);
+      product.productQuantity = product.productQuantity ?? 1;
+      (product as any).email = email; // attach email for filtering
+      localCart.push(product);
     }
 
-    this.UpdateCart_Local(localCart);
+    this.UpdateCart_Local(localCart, email);
     return true;
   }
 
-  AddToCart(cart: cartItems): Observable<cartItems> {
-    // Remove id if backend generates it
+  GetCart_Local(email: string): Product[] {
+    email = "";
+    const cart = JSON.parse(localStorage.getItem("cart") ?? "[]") as Product[];
+    return cart.filter((item: any) => item.email === email);
+  }
 
+  UpdateCart_Local(cart: Product[], email: string): void {
+    email = "";
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.emitCartCount(email);
+  }
+  UpdateCart_DB(cart: cartItems[], email: string): void {
+    if (!cart || cart.length === 0) return;
+
+    const requests = cart.map((item) =>
+      this.httpClient
+        .get<cartItems[]>(
+          `http://localhost:3000/cart?productId=${item.productId}&email=${email}`
+        )
+        .pipe(
+          map((existing) => {
+            if (existing && existing.length > 0) {
+              // Item exists → update quantity
+              const updatedItem = {
+                ...existing[0], // preserve id and DB metadata
+                productId: item.productId,
+                productName: item.productName,
+                productPrice: item.productPrice,
+                productColor: item.productColor,
+                productCategory: item.productCategory,
+                productDescription: item.productDescription,
+                productImageUrl: item.productImageUrl,
+                productQuantity: item.productQuantity ?? 1,
+                email: email,
+              };
+              this.httpClient
+                .put<cartItems>(
+                  `http://localhost:3000/cart/${existing[0].id}`,
+                  updatedItem
+                )
+                .subscribe();
+            } else {
+              // Item does not exist → add new
+              this.AddToCart({
+                id: item.id,
+                productId: item.id,
+                productName: item.productName,
+                productPrice: item.productPrice,
+                productColor: item.productColor,
+                productCategory: item.productCategory,
+                productDescription: item.productDescription,
+                productImageUrl: item.productImageUrl,
+                productQuantity: item.productQuantity ?? 1,
+                email: email,
+              }).subscribe();
+            }
+          })
+        )
+    );
+
+    forkJoin(requests).subscribe({
+      next: () => {
+        console.log("Cart synced with DB successfully");
+        this.emitCartCount(email);
+      },
+      error: (err) => console.error("Error updating cart in DB", err),
+    });
+  }
+
+  RemoveProduct_Local(id: string, email: string) {
+    email = "";
+    let cart: Product[] = this.GetCart_Local(email);
+    cart = cart.filter((p) => p.id !== id);
+    this.UpdateCart_Local(cart, email);
+  }
+
+  countCartItems_local(email: string): number {
+    return this.GetCart_Local(email).length;
+  }
+
+  // ---------------- DB Cart ----------------
+  AddToCart(cart: cartItems): Observable<cartItems> {
     const payload: Partial<cartItems> = { ...cart };
     delete payload.id;
 
     return this.httpClient
       .post<cartItems>("http://localhost:3000/cart", payload)
       .pipe(
-        tap(() => {
-          this.GetCart_Db().subscribe((cartItems) => {
-            this.cartChanges.emit(cartItems.length);
-          });
+        map((res) => {
+          this.emitCartCount();
+          return res;
         })
       );
   }
 
-  countCartItems_local(): number {
-    const localCart = this.GetCart_Local();
-    return Array.isArray(localCart) ? localCart.length : 0;
-  }
-
-  countCartItems_DB(): Observable<number> {
-    return this.httpClient
-      .get<cartItems[]>("http://localhost:3000/cart")
-      .pipe(map((items) => items.length));
-  }
-
-  RemoveProduct_Local(id: string) {
-    let cartProducts: Product[] = this.GetCart_Local();
-    cartProducts = cartProducts.filter((p) => p.id !== id);
-    this.UpdateCart_Local(cartProducts);
-    alert("Removed");
-  }
-
   RemoveProduct_DB(id: string): Observable<cartItems> {
-    return this.httpClient.delete<cartItems>(
-      "http://localhost:3000/cart/" + id
-    );
-  }
-
-  GetCart_Local() {
-    return JSON.parse(localStorage.getItem("cart") ?? "[]") as Product[];
+    return this.httpClient
+      .delete<cartItems>(`http://localhost:3000/cart/${id}`)
+      .pipe(
+        map((res) => {
+          this.emitCartCount();
+          return res;
+        })
+      );
   }
 
   GetCart_Db(): Observable<cartItems[]> {
     return this.httpClient.get<cartItems[]>("http://localhost:3000/cart");
   }
 
-  UpdateCart_Local(cartProducts: Product[]): void {
-    localStorage.setItem("cart", JSON.stringify(cartProducts));
-    this.emitCartCount();
+  countCartItems_DB(): Observable<number> {
+    return this.GetCart_Db().pipe(map((items) => items.length));
   }
 
-  emitCartCount() {
+  // ---------------- Cart Count Handling ----------------
+  emitCartCount(email: string = "") {
     this.userServ.getLoginStatus().subscribe((isLoggedIn) => {
       if (isLoggedIn) {
-        this.countCartItems_DB().subscribe((result) => {
-          this.cartChanges.emit(result);
-        });
+        this.countCartItems_DB().subscribe((count) =>
+          this.cartCount.next(count)
+        );
       } else {
-        this.cartChanges.emit(this.countCartItems_local());
+        const localCount = this.countCartItems_local(email);
+        this.cartCount.next(localCount);
       }
     });
   }
 
-  moveLocalToDb(email: string) {
-    let localCartItems: Product[] = this.GetCart_Local();
+  // ---------------- Move Local to DB ----------------
+  moveLocalToDb(email: string): Observable<any> {
+    const localCart = this.GetCart_Local(email);
+    console.warn(localCart.length + "is the lenght of local cart");
+    if (localCart.length === 0) {
+      return of(null); // nothing to move
+    }
 
-    const requests = localCartItems.map(
-      (item) =>
-        this.AddToCart({
-          productId: item.id, // set productId properly
-          productName: item.productName,
-          productPrice: item.productPrice,
-          productColor: item.productColor,
-          productCategory: item.productCategory,
-          productDescription: item.productDescription,
-          productImageUrl: item.productImageUrl,
-          productQuantity: item.productQuantity ?? 1,
-          email: email,
-        } as cartItems) // cast to cartItems
+    const requests = localCart.map((item) =>
+      this.AddToCart({
+        productId: item.id,
+        productName: item.productName,
+        productPrice: item.productPrice,
+        productColor: item.productColor,
+        productCategory: item.productCategory,
+        productDescription: item.productDescription,
+        productImageUrl: item.productImageUrl,
+        productQuantity: item.productQuantity ?? 1,
+        email: email,
+      } as cartItems)
     );
 
-    forkJoin(requests).subscribe({
-      next: (results) => {
-        console.log("All items moved to DB", results);
+    return forkJoin(requests).pipe(
+      map(() => {
         localStorage.removeItem("cart");
-      },
-      error: (err) => {
-        console.error("Error moving cart items", err);
-      },
-    });
+        this.emitCartCount(email);
+        return true;
+      })
+    );
   }
 }

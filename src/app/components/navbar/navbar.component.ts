@@ -1,19 +1,21 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
-import { SellerService } from "../../services/seller.service";
-import { Seller } from "../../schema/seller";
+import { FormsModule } from "@angular/forms";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import {
   faSearch,
   faCartShopping,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { ProductServiceService } from "../../services/product-service.service";
-import { Product } from "../../schema/product";
-import { FormsModule } from "@angular/forms";
+
 import { UserService } from "../../services/user.service";
-import { User } from "../../schema/user";
 import { CartService } from "../../services/cart.service";
+import { SellerService } from "../../services/seller.service";
+import { ProductServiceService } from "../../services/product-service.service";
+
+import { Product } from "../../schema/product";
+import { Seller } from "../../schema/seller";
+import { User } from "../../schema/user";
 
 @Component({
   selector: "app-navbar",
@@ -22,100 +24,106 @@ import { CartService } from "../../services/cart.service";
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.css"],
 })
-export class NavbarComponent {
-  cartItemsCount: number = 0;
-  isUserLoggedIn: boolean = false;
-  userName: string = "";
-  searchResults: Product[] = [];
-  searchText: string = "";
-
-  isSellerLoggedIn: boolean = false;
-  sellerName: string = "";
-  seller: Seller = { email: "", name: "", password: "" };
-  user: User = { email: "", fullName: "", password: "" };
-
+export class NavbarComponent implements OnInit {
+  // Icons
   faCartShopping = faCartShopping;
   faSearch = faSearch;
   faUser = faUser;
 
+  // User & Seller state
+  isUserLoggedIn: boolean = false;
+  userName: string = "";
+  isSellerLoggedIn: boolean = false;
+  sellerName: string = "";
+
+  // Cart
+  cartItemsCount: number = 0;
+
+  // Search
+  searchText: string = "";
+  searchResults: Product[] = [];
+
   constructor(
-    private sellerServ: SellerService,
-    private route: Router,
-    private productServ: ProductServiceService,
+    private router: Router,
     private userServ: UserService,
-    private cartServ: CartService
+    private sellerServ: SellerService,
+    private cartServ: CartService,
+    private productServ: ProductServiceService
   ) {}
 
   ngOnInit() {
-    // Seller login status
+    // --------- User login status ----------
+    this.userServ.getLoginStatus().subscribe((status) => {
+      this.isUserLoggedIn = status;
+      const userData = status
+        ? JSON.parse(localStorage.getItem("user") || "null")
+        : null;
+      this.userName = userData ? userData.fullName : "";
+
+      // Emit cart count for the current user
+      const email = userData?.email ?? "";
+      this.cartServ.emitCartCount(email);
+    });
+
+    // --------- Seller login status ----------
     this.sellerServ.getLoginStatus().subscribe((status) => {
       this.isSellerLoggedIn = status;
-      const sellerData = JSON.parse(localStorage.getItem("seller") || "null");
-      if (sellerData?.length > 0) {
-        this.seller = sellerData[0];
-        this.sellerName = this.seller.name;
-      } else {
-        this.seller = { email: "", name: "", password: "" };
-        this.sellerName = "";
-      }
+      const sellerData = status
+        ? JSON.parse(localStorage.getItem("seller") || "null")
+        : null;
+      this.sellerName = sellerData?.name ?? "";
     });
 
-    // User login status
-    this.userServ.getLoginStatus().subscribe((isLoggedIn) => {
-      this.isUserLoggedIn = isLoggedIn;
-      const userData = JSON.parse(localStorage.getItem("user") || "null");
-      if (isLoggedIn && userData) {
-        this.user = userData;
-        this.userName = this.user.fullName;
-      } else {
-        this.user = { email: "", fullName: "", password: "" };
-        this.userName = "";
-      }
-      // Always emit initial cart count after knowing login status
-      this.cartServ.emitCartCount();
-    });
-
-    // Subscribe to cartChanges for automatic updates
-    this.cartServ.cartChanges.subscribe((count) => {
+    // --------- Cart count subscription ----------
+    this.cartServ.cartChanges$.subscribe((count) => {
       this.cartItemsCount = count;
     });
   }
 
-  Logout() {
-    if (confirm("Are you sure you want to logout")) {
-      localStorage.removeItem("seller");
-      this.sellerServ.setLoginStatus(false);
-      this.route.navigate(["/"]);
-      alert("You have been successfully logged out!");
-    }
-  }
-
+  // --------- User logout ----------
   logoutUser() {
-    if (confirm("Are you sure you want to logout")) {
+    if (confirm("Are you sure you want to logout?")) {
       localStorage.removeItem("user");
       this.userServ.setLoginStatus(false);
-      this.route.navigate(["/"]);
+      alert("You have been successfully logged out!");
+      this.router.navigate(["/"]);
+      this.cartServ.emitCartCount("");
+    }
+  }
+
+  // --------- Seller logout ----------
+  logoutSeller() {
+    if (confirm("Are you sure you want to logout?")) {
+      localStorage.removeItem("seller");
+      this.sellerServ.setLoginStatus(false);
+      this.router.navigate(["/"]);
       alert("You have been successfully logged out!");
     }
   }
 
-  handleChange(query: Event) {
-    const target = query.target as HTMLInputElement;
+  // --------- Search ----------
+  handleChange(event: Event) {
+    const target = event.target as HTMLInputElement;
     this.searchText = target.value;
-    this.productServ.searchProduct(this.searchText).subscribe((result) => {
-      this.searchResults = result;
-    });
+
+    if (this.searchText.trim()) {
+      this.productServ.searchProduct(this.searchText).subscribe((results) => {
+        this.searchResults = results;
+      });
+    } else {
+      this.searchResults = [];
+    }
   }
 
   selectResult(id: string) {
-    this.route.navigate(["product-details", id]);
+    this.router.navigate(["product-details", id]);
     this.searchResults = [];
     this.searchText = "";
   }
 
   search(val: string) {
-    if (val) {
-      this.route.navigate(["search", val]);
+    if (val.trim()) {
+      this.router.navigate(["search", val]);
       this.searchResults = [];
       this.searchText = "";
     }

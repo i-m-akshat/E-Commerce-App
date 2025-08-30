@@ -8,6 +8,48 @@
             <div class="card mb-4 p-3">
                 <h5 class="fw-bold mb-3">Cart Items</h5>
                 <ul class="list-group list-group-flush">
+                    @if(isUserLoggedIn){
+                    @for(item of cartDb; track $index){
+                    <li
+                        class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
+                        <div class="d-flex align-items-center mb-2 mb-md-0">
+                            <img [src]="item.productImageUrl" alt="Product" class="rounded me-3"
+                                style="width: 80px; height: 80px; object-fit: cover;" />
+                            <div>
+                                <h6 class="mb-1">{{item.productName}}</h6>
+                                <p class="text-muted mb-0 small">{{item.productCategory}}</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center flex-wrap mt-2 mt-md-0">
+                            <!-- Decrease quantity button -->
+                            <button class="btn btn-outline-success btn-sm me-1 mb-1 quantity-btn"
+                                (click)="decreaseQuantity(item.productId)">
+                                -
+                            </button>
+
+                            <!-- Quantity input (disabled) -->
+                            <input type="number" [value]="item.productQuantity"
+                                class="form-control form-control-sm me-1 mb-1 quantity-input" style="width: 60px"
+                                disabled />
+
+                            <!-- Increase quantity button -->
+                            <button class="btn btn-outline-success btn-sm me-2 mb-1 quantity-btn"
+                                (click)="increaseQuantity(item.productId)">
+                                +
+                            </button>
+
+                            <!-- Product price -->
+                            <span class="product-price me-3 mb-1">₹{{item.productPrice}}</span>
+
+                            <!-- Remove product button -->
+                            <button class="btn btn-danger btn-sm remove-btn mb-1" (click)="RemoveProduct(item.id)">
+                                Remove
+                            </button>
+                        </div>
+                    </li>
+                    }
+                    }@else{
                     @for(item of cartProducts; track $index){
                     <li
                         class="list-group-item d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-2">
@@ -48,6 +90,8 @@
                         </div>
                     </li>
                     }
+                    }
+
                 </ul>
             </div>
         </div>
@@ -69,7 +113,7 @@
                     <span>Total</span>
                     <span>₹{{total}}</span>
                 </div>
-                <button class="btn btn-primary w-100 btn-lg mt-4">
+                <button (click)="navigateCheckout()" class="btn btn-primary w-100 btn-lg mt-4">
                     Proceed to Checkout
                 </button>
             </div>

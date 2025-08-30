@@ -43,4 +43,10 @@ export class UserService {
   getLoginStatus(): Observable<boolean> {
     return this.isUserLoggedIn.asObservable();
   }
+  getUserEmail() {
+    var localStorage_User = JSON.parse(localStorage.getItem("user") ?? "");
+    if (localStorage_User) {
+      return localStorage_User.email;
+    }
+  }
 }

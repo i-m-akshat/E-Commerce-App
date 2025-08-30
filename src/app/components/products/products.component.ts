@@ -12,11 +12,12 @@ import { cartItems } from "../../schema/cart";
   selector: "app-products",
   imports: [FontAwesomeModule],
   templateUrl: "./products.component.html",
-  styleUrl: "./products.component.css",
+  styleUrls: ["./products.component.css"],
 })
 export class ProductsComponent implements OnInit {
   products!: Product[];
   isUserLoggedIn: boolean = false;
+  userEmail: string = ""; // store logged-in user's email
   faEye = faEye;
   faCartShopping = faCartShopping;
 
@@ -30,6 +31,10 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.userServ.getLoginStatus().subscribe((status) => {
       this.isUserLoggedIn = status;
+      if (status) {
+        const user = JSON.parse(localStorage.getItem("user") ?? "{}");
+        this.userEmail = user?.email ?? "";
+      }
     });
     this.reloadList();
   }
@@ -49,12 +54,9 @@ export class ProductsComponent implements OnInit {
         product.productQuantity = 1;
 
         if (this.isUserLoggedIn) {
-          const user = JSON.parse(localStorage.getItem("user") ?? "{}");
-          const email = user?.email ?? "";
-
           const cartPayload: cartItems = {
-            id: "", // optional, backend generates
-            productId: product.id, // backend expects productId
+            id: "", // backend generates
+            productId: product.id,
             productName: product.productName,
             productPrice: product.productPrice,
             productColor: product.productColor,
@@ -62,32 +64,27 @@ export class ProductsComponent implements OnInit {
             productDescription: product.productDescription,
             productImageUrl: product.productImageUrl,
             productQuantity: product.productQuantity ?? 1,
-            email: email,
+            email: this.userEmail,
           };
 
           this.cartServ.AddToCart(cartPayload).subscribe({
             next: () => {
-              alert("Added to cart");
+              // optional: show success message in UI instead of alert
               this.cartServ.emitCartCount();
               this.route.navigate(["/cart"]);
             },
-            error: (err) => {
-              console.error("Error adding to cart:", err);
-              alert("Failed to add to cart. Please try again.");
-            },
+            error: (err) => console.error("Error adding to cart:", err),
           });
         } else {
-          const res = this.cartServ.AddToCart_Local(product);
+          // Guest user: pass email (can be empty string for guest)
+          const res = this.cartServ.AddToCart_Local(product, this.userEmail);
           if (res) {
-            alert("Added to cart");
             this.cartServ.emitCartCount();
             this.route.navigate(["/cart"]);
           }
         }
       },
-      error: (err) => {
-        console.error("Failed to fetch product details:", err);
-      },
+      error: (err) => console.error("Failed to fetch product details:", err),
     });
   }
 }

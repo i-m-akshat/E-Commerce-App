@@ -21,7 +21,6 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   return sellerService.getLoginStatus().pipe(
     map((isLoggedIn) => {
-      console.log(isLoggedIn);
       if (isLoggedIn) {
         return true;
       } else {

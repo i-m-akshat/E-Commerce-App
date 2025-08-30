@@ -11,7 +11,7 @@ import { cartItems } from "../../schema/cart";
   selector: "app-product-details",
   imports: [FormsModule],
   templateUrl: "./product-details.component.html",
-  styleUrl: "./product-details.component.css",
+  styleUrls: ["./product-details.component.css"],
 })
 export class ProductDetailsComponent implements OnInit {
   isUserLoggedIn: boolean = false;
@@ -78,7 +78,7 @@ export class ProductDetailsComponent implements OnInit {
       const email = user.email ?? "";
 
       const cartPayload: cartItems = {
-        productId: this.productDetails.id, // use productId for backend
+        productId: this.productDetails.id,
         productName: this.productDetails.productName,
         productPrice: this.productDetails.productPrice,
         productColor: this.productDetails.productColor,
@@ -87,7 +87,7 @@ export class ProductDetailsComponent implements OnInit {
         productImageUrl: this.productDetails.productImageUrl,
         productQuantity: qty,
         email: email,
-        id: "", // optional, backend should generate if needed
+        id: "", // backend generates
       };
 
       this.cartServ.AddToCart(cartPayload).subscribe({
@@ -101,7 +101,13 @@ export class ProductDetailsComponent implements OnInit {
         },
       });
     } else {
-      const res = this.cartServ.AddToCart_Local(this.productDetails);
+      // Guest / local cart: pass email (can be empty string)
+      const guestEmail = ""; // or some logic to identify guest
+      const res = this.cartServ.AddToCart_Local(
+        this.productDetails,
+        guestEmail
+      );
+
       if (res) {
         alert("Added to cart");
         this.cartServ.emitCartCount();

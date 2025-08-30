@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.query = params.get("query");
-      if (this.query != "" || this.query != null) {
+      if (this.query != null && this.query != "") {
         this.service
           .searchProduct(this.query ?? "")
           .subscribe((result: Product[]) => {

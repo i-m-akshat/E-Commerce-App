@@ -30,8 +30,14 @@ export class UserLoginComponent implements OnInit {
         if (result && result.length > 0) {
           localStorage.setItem("user", JSON.stringify(result[0]));
           this.service.setLoginStatus(true);
-          this.cartServ.moveLocalToDb(result[0].email);
-          this.router.navigate([""]);
+          console.warn("while moving the email is ", result[0].email);
+          // subscribe to moveLocalToDb
+          this.cartServ.moveLocalToDb(result[0].email).subscribe({
+            next: () => {
+              this.router.navigate([""]);
+            },
+            error: (err) => console.error(err),
+          });
         } else {
           alert("No user found !");
         }

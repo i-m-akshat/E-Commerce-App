@@ -1,89 +1,115 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { CartService } from "../../services/cart.service";
 import { UserService } from "../../services/user.service";
 import { Product } from "../../schema/product";
-import { CartService } from "../../services/cart.service";
+import { cartItems } from "../../schema/cart";
 
 @Component({
   selector: "app-cart",
-  imports: [],
   templateUrl: "./cart.component.html",
-  styleUrl: "./cart.component.css",
+  styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
-  cartProducts: Product[] = [];
+  cartProducts: Product[] = []; // local cart
+  cartDb: cartItems[] = []; // DB cart
   subTotal: number = 0;
-  shipping: number = 100; //by default
+  shipping: number = 100;
   total: number = 0;
+  userEmail: string = "";
+  isUserLoggedIn: boolean = false;
+
   constructor(
     private userService: UserService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
+
   ngOnInit(): void {
     this.userService.getLoginStatus().subscribe((isLoggedIn) => {
+      this.isUserLoggedIn = isLoggedIn;
+      this.userEmail = isLoggedIn ? this.userService.getUserEmail()! : "";
+
       if (isLoggedIn) {
         this.cartService.GetCart_Db().subscribe((result) => {
-          this.cartProducts = result;
+          this.cartDb = result;
+          this.CalculatePrice();
         });
       } else {
-        this.cartProducts = JSON.parse(localStorage.getItem("cart") ?? "[]");
-      }
-      this.CalculatePrice();
-    });
-  }
-  RemoveProduct(id: string) {
-    this.userService.getLoginStatus().subscribe((isLoggedIn) => {
-      if (isLoggedIn) {
-        this.cartService.RemoveProduct_DB(id).subscribe((result) => {
-          if (result) {
-            alert("Removed successfully");
-            // refresh cart after removal
-            this.cartService.GetCart_Db().subscribe((updatedCart) => {
-              this.cartProducts = updatedCart;
-              this.CalculatePrice();
-              this.cartService.emitCartCount();
-            });
-          }
-        });
-      } else {
-        this.cartService.RemoveProduct_Local(id);
-        this.cartProducts = this.cartService.GetCart_Local();
+        this.cartProducts = this.cartService.GetCart_Local(this.userEmail);
         this.CalculatePrice();
-        this.cartService.emitCartCount();
       }
     });
   }
 
+  RemoveProduct(id: string) {
+    if (this.isUserLoggedIn) {
+      this.cartService.RemoveProduct_DB(id).subscribe(() => {
+        this.cartDb = this.cartDb.filter((p) => p.id !== id);
+        this.CalculatePrice();
+        this.cartService.emitCartCount(this.userEmail);
+      });
+    } else {
+      this.cartService.RemoveProduct_Local(id, this.userEmail);
+      this.cartProducts = this.cartProducts.filter((p) => p.id !== id);
+      this.CalculatePrice();
+      this.cartService.emitCartCount(this.userEmail);
+    }
+  }
+
   decreaseQuantity(id: string) {
-    let product = this.cartProducts.find((p) => p.id === id);
-    if (product) {
-      if (product.productQuantity === 1) {
-        alert("quantity should not be 0");
-      } else {
-        product.productQuantity = product.productQuantity ?? 1;
-        product.productQuantity -= 1;
-        localStorage.setItem("cart", JSON.stringify(this.cartProducts));
-      }
+    if (this.isUserLoggedIn) {
+      const product = this.cartDb.find((p) => p.productId === id);
+      if (!product || (product.productQuantity ?? 1) <= 1) return;
+
+      product.productQuantity!--;
+      this.cartService.UpdateCart_DB(this.cartDb, this.userEmail);
+    } else {
+      const product = this.cartProducts.find((p) => p.id === id);
+      if (!product || (product.productQuantity ?? 1) <= 1) return;
+
+      product.productQuantity!--;
+      this.cartService.UpdateCart_Local(this.cartProducts, this.userEmail);
     }
+
     this.CalculatePrice();
+    this.cartService.emitCartCount(this.userEmail);
   }
+
   increaseQuantity(id: string) {
-    let product = this.cartProducts.find((p) => p.id === id);
-    if (product) {
-      if (product.productQuantity === 20) {
-        alert("quantity should not be more than 20");
-      } else {
-        product.productQuantity = product.productQuantity ?? 1;
-        product.productQuantity += 1;
-        localStorage.setItem("cart", JSON.stringify(this.cartProducts));
-      }
+    if (this.isUserLoggedIn) {
+      const product = this.cartDb.find((p) => p.productId === id);
+      if (!product || (product.productQuantity ?? 1) >= 20) return;
+      product.productQuantity!++;
+      this.cartService.UpdateCart_DB(this.cartDb, this.userEmail);
+    } else {
+      const product = this.cartProducts.find((p) => p.id === id);
+      if (!product || (product.productQuantity ?? 1) >= 20) return;
+
+      product.productQuantity!++;
+      this.cartService.UpdateCart_Local(this.cartProducts, this.userEmail);
     }
+
     this.CalculatePrice();
+    this.cartService.emitCartCount(this.userEmail);
   }
+
   CalculatePrice() {
-    this.subTotal = 0;
-    this.cartProducts.forEach((element) => {
-      this.subTotal += element.productPrice * (element.productQuantity ?? 1);
-    });
+    if (this.isUserLoggedIn) {
+      this.subTotal = this.cartDb.reduce(
+        (sum, item) => sum + item.productPrice * (item.productQuantity ?? 1),
+        0
+      );
+    } else {
+      this.subTotal = this.cartProducts.reduce(
+        (sum, item) => sum + item.productPrice * (item.productQuantity ?? 1),
+        0
+      );
+    }
     this.total = this.subTotal + this.shipping;
+  }
+
+  navigateCheckout() {
+    this.router.navigate(["checkout"]);
   }
 }
